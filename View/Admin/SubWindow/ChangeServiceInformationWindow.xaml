@@ -22,7 +22,7 @@
                      Text="{Binding SelectedCostService , UpdateSourceTrigger=PropertyChanged}"/>
 
 
-            <Button Content="Добавить" Width="100" 
+            <Button Content="Изменить" Width="100" 
                     HorizontalAlignment="Center" 
                     Margin="0,20,0,0"
                     Command="{Binding EditAddService}"/>

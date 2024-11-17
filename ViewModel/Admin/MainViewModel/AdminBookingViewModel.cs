@@ -2,6 +2,7 @@
 using DAL.Entities;
 using HM2.Command;
 using HM2.Model.Admin;
+using HM2.Model.Admin.MainModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,24 +16,21 @@ namespace HM2.ViewModel.Admin
 {
     public class AdminBookingViewModel : AdminViewModel
     {
+        private AdminBookingModel _adminBookingModel;
         public AdminBookingViewModel(WindowContext windowContext) 
         {
-            using(HotelModel hm = new HotelModel())
+            _adminBookingModel = new AdminBookingModel();
+
+            var allBookings = _adminBookingModel.GetAllBookings();
+            foreach (var item in allBookings)
             {
-                List<Booking> bookings = (from b in hm.Booking select b).ToList();
-                foreach(Booking booking in bookings)
-                {
-                    BookingList.Add(new UserBookingExtension(booking));
-                }
+                BookingList.Add(item);
             }
 
-            using (HotelModel hm = new HotelModel())
+            var statuses = _adminBookingModel.GetAllStatuses();
+            foreach(var item in statuses)
             {
-                var list = (from s in hm.Status select s).ToList();
-                foreach(var item in list)
-                {
-                    AllStatusBooking.Add(item);
-                }
+                AllStatusBooking.Add(item);
             }
 
             FindClientBooking = new RelayCommand(_ =>
@@ -40,13 +38,10 @@ namespace HM2.ViewModel.Admin
                 BookingList.Clear();
                 if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0)
                 {
-                    using (HotelModel hm = new HotelModel())
+                    var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking, SelectedStatusBooking.Id);
+                    foreach(var item in bookings)
                     {
-                        var list = (from b in hm.Booking where b.IdStatus == SelectedStatusBooking.Id && b.User.number == SelectedPhoneClientBooking select b).ToList();
-                        foreach(var item in list)
-                        {
-                            BookingList.Add(new UserBookingExtension(item));
-                        }
+                        BookingList.Add(item);
                     }
 
                 }
@@ -54,21 +49,15 @@ namespace HM2.ViewModel.Admin
 
             RefuseBooking = new RelayCommand(_ =>
             {
-                if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0)
+                if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0 && SelectedBooking.Id != 0)
                 {
-                    using (HotelModel hm = new HotelModel())
+                    _adminBookingModel.RefuseBooking(SelectedBooking.Id);
+                    BookingList.Clear();
+                    var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking,SelectedStatusBooking.Id);
+                    foreach(var item in bookings)
                     {
-                        var booking = (from b in hm.Booking where b.Id == SelectedBooking.Id select b).ToList().First();
-                        booking.IdStatus = 3;
-                        hm.SaveChanges();
-                        BookingList.Clear();
-                        var bookings = (from b in hm.Booking where b.IdStatus == SelectedStatusBooking.Id && b.User.number == SelectedPhoneClientBooking select b).ToList();
-                        foreach(var item in bookings)
-                        {
-                            BookingList.Add(new UserBookingExtension(item));
-                        }
+                        BookingList.Add(item);
                     }
-
                 }
             });
         }

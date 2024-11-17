@@ -75,6 +75,8 @@
     <Compile Include="AdditionalEntities\UserBookingExtension.cs" />
     <Compile Include="AdditionalEntities\UserExtension.cs" />
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Model\Admin\MainModel\AdminAddServiceModel.cs" />
+    <Compile Include="Model\Admin\MainModel\AdminBookingModel.cs" />
     <Compile Include="Model\Admin\SubModel\AddNewServiceModel.cs" />
     <Compile Include="Model\Admin\SubModel\AddTypeRoomModel.cs" />
     <Compile Include="Model\Admin\SubModel\ChangeServiceInformationModel.cs" />

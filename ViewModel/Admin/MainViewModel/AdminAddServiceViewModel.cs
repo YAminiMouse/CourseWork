@@ -2,6 +2,7 @@
 using DAL.Entities;
 using HM2.Command;
 using HM2.Model.Admin;
+using HM2.Model.Admin.MainModel;
 using HM2.View.Admin;
 using System;
 using System.Collections.Generic;
@@ -16,28 +17,25 @@ namespace HM2.ViewModel.Admin
 {
     public class AdminAddServiceViewModel : AdminViewModel
     {   
+        private AdminAddServiceModel _adminAddServiceModel;
         private void UpdateAddServices()
         {
             AddServices.Clear();
-            using (HotelModel hm = new HotelModel())
+            var addServices = _adminAddServiceModel.GetAllGetService();
+            foreach (var item in addServices)
             {
-                List<AddService> list = (from a in hm.AddService select a).ToList();
-                foreach(var item in list)
-                {
-                    AddServices.Add(new AddServiceExtension(item));
-                }
+                AddServices.Add(new AddServiceExtension(item));
             }
         }
         public AdminAddServiceViewModel(WindowContext windowContext) 
         {
-            using(HotelModel hm = new HotelModel())
+            _adminAddServiceModel = new AdminAddServiceModel();
+            var addServices = _adminAddServiceModel.GetAllGetService();
+            foreach(var item in addServices)
             {
-                List<AddService> list = (from addService in hm.AddService select addService).ToList();
-                foreach(AddService addService in list)
-                {
-                    AddServices.Add(new AddServiceExtension(addService));
-                }
+                AddServices.Add(new AddServiceExtension(item));
             }
+
 
             AddNewService = new RelayCommand(_ =>
             {
