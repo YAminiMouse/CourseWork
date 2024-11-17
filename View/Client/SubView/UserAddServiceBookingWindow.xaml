@@ -1,0 +1,26 @@
+﻿<Window x:Class="HM2.View.UserAddServiceBookingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HM2.View"
+        mc:Ignorable="d"
+        Title="Выбранные услуги" Width="450" Height="350"
+        Closing ="OnWindowClosed">
+    <Grid>
+        <Grid Margin="10">
+            <DataGrid Name="BookingsDataGrid"
+                              Grid.Row="1" 
+                              AutoGenerateColumns="False"
+                              Margin="0,10,0,10"
+                              ItemsSource="{Binding UserStringServices}"
+                              >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название услуги" Width="*" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Стоимость услуги" Width="*" Binding="{Binding Cost}"/>
+                    <DataGridTextColumn Header="Количество" Width="*" Binding="{Binding Count}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
