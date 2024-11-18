@@ -54,6 +54,15 @@ namespace HM2.ViewModel.Admin
                     addTypeRoomWindow.Show();
                 }
             });
+
+            DeleteAddService = new RelayCommand(_ =>
+            {
+                if (SelectedAddservice != null)
+                {
+                    _adminAddServiceModel.DeleteSelectedService(SelectedAddservice.Id);
+                    UpdateAddServices();
+                }
+            });
         }
     }
 }

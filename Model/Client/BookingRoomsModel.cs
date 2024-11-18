@@ -23,7 +23,7 @@ namespace HM2.Model
         {
             using (HotelModel hm = new HotelModel())
             {
-                var types = (from typeroom in hm.TypeRoom select typeroom).ToList();
+                var types = (from typeroom in hm.TypeRoom where typeroom.deleteDate == null select typeroom).ToList();
                 List<TypeRoomExtension> typesExtensions = new List<TypeRoomExtension>();
                 foreach (var type in types)
                 {

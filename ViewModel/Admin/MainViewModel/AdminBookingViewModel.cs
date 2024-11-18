@@ -17,15 +17,22 @@ namespace HM2.ViewModel.Admin
     public class AdminBookingViewModel : AdminViewModel
     {
         private AdminBookingModel _adminBookingModel;
-        public AdminBookingViewModel(WindowContext windowContext) 
-        {
-            _adminBookingModel = new AdminBookingModel();
 
+        private void UpdateBookingList()
+        {
+            BookingList.Clear();
             var allBookings = _adminBookingModel.GetAllBookings();
             foreach (var item in allBookings)
             {
                 BookingList.Add(item);
             }
+        }
+
+        public AdminBookingViewModel(WindowContext windowContext) 
+        {
+            _adminBookingModel = new AdminBookingModel();
+
+            UpdateBookingList();
 
             var statuses = _adminBookingModel.GetAllStatuses();
             foreach(var item in statuses)
@@ -49,7 +56,7 @@ namespace HM2.ViewModel.Admin
 
             RefuseBooking = new RelayCommand(_ =>
             {
-                if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0 && SelectedBooking.Id != 0)
+                if (SelectedBooking != null)
                 {
                     _adminBookingModel.RefuseBooking(SelectedBooking.Id);
                     BookingList.Clear();
@@ -58,6 +65,24 @@ namespace HM2.ViewModel.Admin
                     {
                         BookingList.Add(item);
                     }
+                }
+            });
+
+            PopulateClient = new RelayCommand(_ =>
+            {
+                if (SelectedBooking != null)
+                {
+                    _adminBookingModel.PopulateClient(SelectedBooking.Id);
+                    UpdateBookingList();
+                }
+            });
+
+            EvictClient = new RelayCommand(_ =>
+            {
+                if (SelectedBooking != null)
+                {
+                    _adminBookingModel.EvictClient(SelectedBooking.Id);
+                    UpdateBookingList();
                 }
             });
         }

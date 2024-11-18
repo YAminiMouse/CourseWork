@@ -58,6 +58,15 @@ namespace HM2.ViewModel.Admin
                     changeTypeRoomInformationWindow.Show();
                 }
             });
+
+            DeleteTypeRoom = new RelayCommand(_ =>
+            {
+                if (SelectedType != null)
+                {
+                    adminTypeRoomModel.DeleteSelectedType(SelectedType.Id);
+                    UpdateTypesRoom();
+                }
+            });
         }
     }
 }

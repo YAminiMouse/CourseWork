@@ -163,6 +163,14 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="3">
+                        <Button Content="Заселить" 
+                                Width="100"
+                                Command="{Binding PopulateClient}"
+                                Margin="0,0,10,0"/>
+                        <Button Content="Выселить" 
+                                Width="100"
+                                Command="{Binding EvictClient}"
+                                Margin="0,0,10,0"/>
                         <Button Content="Отменить бронь" 
                                 Width="100"
                                 Command="{Binding RefuseBooking}"/>
@@ -182,7 +190,9 @@
                                     Width="100" 
                                     Margin="0,0,10,0" 
                                     Command="{Binding EditAddService}"/>
-                            <Button Content="Удалить" Width="100" />
+                            <Button Command="{Binding DeleteAddService}"
+                                    Content="Удалить" 
+                                    Width="100" />
                         </StackPanel>
                         
                         <DataGrid AutoGenerateColumns="False" 

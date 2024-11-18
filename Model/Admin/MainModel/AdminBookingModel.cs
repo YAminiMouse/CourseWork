@@ -63,5 +63,25 @@ namespace HM2.Model.Admin.MainModel
                 hm.SaveChanges();
             }
         }
+
+        public void PopulateClient(int selectedBookingId)
+        {
+            using(HotelModel hm = new HotelModel())
+            {
+                var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
+                booking.IdStatus = 2;
+                hm.SaveChanges();
+            }
+        }
+
+        public void EvictClient(int selectedBookingId)
+        {
+            using (HotelModel hm = new HotelModel())
+            {
+                var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
+                booking.IdStatus = 4;
+                hm.SaveChanges();
+            }
+        }
     }
 }

@@ -22,6 +22,9 @@ namespace DAL.Entities
         [Required]
         public string name { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? deleteDate { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StringService> StringService { get; set; }
     }

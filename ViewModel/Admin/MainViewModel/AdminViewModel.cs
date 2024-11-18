@@ -189,6 +189,10 @@ namespace HM2.ViewModel.Admin
         public ICommand RefuseBooking { get; set; }
         public ICommand AddNewService { get; set; }
         public ICommand EditAddService { get; set; }
+        public ICommand DeleteAddService { get; set; }
+        public ICommand DeleteTypeRoom { get; set; }
+        public ICommand PopulateClient { get; set; }
+        public ICommand EvictClient { get; set; }
         public AdminViewModel() 
         {
             AllUsers = new ObservableCollection<UserExtension>();

@@ -16,7 +16,7 @@ namespace HM2.Model
             List<AddService> list = new List<AddService>();
             using (HotelModel hm = new HotelModel())
             {
-                var addServices = (from service in hm.AddService select service).ToList();
+                var addServices = (from service in hm.AddService where service.deleteDate == null select service).ToList();
                 foreach (AddService service in addServices)
                 {
                     list.Add(service);

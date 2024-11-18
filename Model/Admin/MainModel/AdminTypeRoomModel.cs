@@ -17,13 +17,23 @@ namespace HM2.Model.Admin
             List<TypeRoomExtension> allTypes = new List<TypeRoomExtension>();
             using (HotelModel hm = new HotelModel())
             {
-                List<TypeRoom> types = (from t in hm.TypeRoom select t).ToList();
+                List<TypeRoom> types = (from t in hm.TypeRoom where t.deleteDate == null select t).ToList();
                 foreach (TypeRoom t in types)
                 {
                     allTypes.Add(new TypeRoomExtension(t, t.Capacity, t.Comfort));
                 }
             }
             return allTypes;
+        }
+
+        public void DeleteSelectedType(int selectedTypeId)
+        {
+            using(HotelModel hm = new HotelModel())
+            {
+                var type = (from t in hm.TypeRoom where t.Id == selectedTypeId select t).ToList().First();
+                type.deleteDate = DateTime.Now;
+                hm.SaveChanges();
+            }
         }
     }
 }

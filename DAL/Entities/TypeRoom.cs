@@ -27,6 +27,9 @@ namespace DAL.Entities
 
         public string name { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? deleteDate { get; set; }
+
         public virtual Capacity Capacity { get; set; }
 
         public virtual Comfort Comfort { get; set; }
