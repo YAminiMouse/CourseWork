@@ -54,8 +54,8 @@ namespace HM2.ViewModel
             }
         }
 
-        private double _Size;
-        public double Size
+        private string _Size;
+        public string Size
         {
             get
             {
@@ -102,8 +102,14 @@ namespace HM2.ViewModel
             _personalAccount = new PersonalAccountModel();
 
             var currentUser = (UserExtension)windowContext.GetResourse("CURRENT_USER");
-
-            _Size = (double)(currentUser.DiscountSize * 100);
+            if (currentUser.DiscountSize == 1)
+            {
+                _Size = "Нет скидки";
+            }
+            else
+            {
+                _Size = ((double)(currentUser.DiscountSize * 100)).ToString() + "%";
+            }
             _FIO = currentUser.FIO;
             _Number = currentUser.Number;
 

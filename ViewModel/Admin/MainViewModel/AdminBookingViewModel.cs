@@ -72,7 +72,7 @@ namespace HM2.ViewModel.Admin
             {
                 if (SelectedBooking != null)
                 {
-                    _adminBookingModel.PopulateClient(SelectedBooking.Id);
+                    _adminBookingModel.PopulateClientAndRecalculateDiscount(SelectedBooking.Id);
                     UpdateBookingList();
                 }
             });

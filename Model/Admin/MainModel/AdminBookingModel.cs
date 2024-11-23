@@ -64,15 +64,38 @@ namespace HM2.Model.Admin.MainModel
             }
         }
 
-        public void PopulateClient(int selectedBookingId)
+        public void PopulateClientAndRecalculateDiscount(int selectedBookingId)
         {
             using(HotelModel hm = new HotelModel())
             {
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
                 booking.IdStatus = 2;
+                var user = booking.User;
+                if (user.moneySpent == null)
+                {
+                    user.moneySpent = 0;
+                }
+                user.moneySpent = user.moneySpent + booking.FinalCost;
+                if (user.moneySpent < 10000)
+                {
+                    user.IdDiscount = 1;
+                }
+                else if (user.moneySpent < 20000)
+                {
+                    user.IdDiscount = 2;
+                }
+                else if (user.moneySpent < 30000)
+                {
+                    user.IdDiscount = 3;
+                }
+                else 
+                {
+                    user.IdDiscount = 4;
+                }
                 hm.SaveChanges();
             }
         }
+
 
         public void EvictClient(int selectedBookingId)
         {

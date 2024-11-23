@@ -85,7 +85,15 @@ namespace HM2.Model
             {
                 addServicesSum += addservice.Cost * addservice.Count;
             }
-            double totalAmount = (selectedRoomCost * nights.Days + addServicesSum) * (1 - (double)discountSize);
+            double totalAmount;
+            if (discountSize != 1)
+            {
+                totalAmount = (selectedRoomCost * nights.Days + addServicesSum) * (1 - (double)discountSize);
+            }
+            else
+            {
+                totalAmount = (selectedRoomCost * nights.Days + addServicesSum);
+            }
             return totalAmount;
         }
 
