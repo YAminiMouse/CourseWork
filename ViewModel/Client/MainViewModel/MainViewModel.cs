@@ -34,7 +34,10 @@ namespace HM2.ViewModel
         {
             var windowsBuilder = (WindowsBuilder)windowContext.GetResourse("WINDOW_BUILDER");
             NavigateToBookingCommand = new RelayCommand(_ =>  {
-                CurrentPage = windowsBuilder.Build("BOOKING_PAGE");
+                CurrentPage = windowsBuilder.Build("BOOKING_PAGE" , () =>
+                {
+                    CurrentPage = windowsBuilder.Build("PERSONAL_ACCOUNT_PAGE");
+                });
             });
             NavigateToPersonalAccountCommand = new RelayCommand(_ => {
                 CurrentPage = windowsBuilder.Build("PERSONAL_ACCOUNT_PAGE");

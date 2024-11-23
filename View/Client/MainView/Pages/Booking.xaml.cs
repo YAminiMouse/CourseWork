@@ -23,10 +23,10 @@ namespace HM2.View.Pages
     /// </summary>
     public partial class Booking : Page
     {
-        public Booking(WindowContext windowContext)
+        public Booking(WindowContext windowContext , OnWindowClose onWindowClose)
         {
             InitializeComponent();
-            DataContext = new BookingViewModel(windowContext);
+            DataContext = new BookingViewModel(windowContext , onWindowClose);
         }
     }
 }

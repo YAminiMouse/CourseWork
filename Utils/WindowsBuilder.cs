@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HM2.View;
 using HM2.View.Admin;
+using HM2.ViewModel;
 
 namespace DAL.AdditionalEntities
 {
@@ -24,7 +25,7 @@ namespace DAL.AdditionalEntities
             
         }
 
-        public object Build(string windowId)
+        public object Build(string windowId , OnWindowClose onWindowClose = null)
         {
             switch(windowId)
             {
@@ -38,7 +39,7 @@ namespace DAL.AdditionalEntities
                 }
                 case "BOOKING_PAGE":
                 {
-                    return new HM2.View.Pages.Booking(_windowContext);
+                    return new HM2.View.Pages.Booking(_windowContext , onWindowClose);
                 }
                 case "PERSONAL_ACCOUNT_PAGE":
                 {

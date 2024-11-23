@@ -159,7 +159,7 @@ namespace HM2.ViewModel
             set { serviceExtensions = value; RaisePropertyChanged("EnterAddServices"); }
         }
 
-        public BookingViewModel(WindowContext windowContext) 
+        public BookingViewModel(WindowContext windowContext , OnWindowClose onWindowClose) 
         {
             _windowContext = windowContext;
             _startDate = DateTime.Now;
@@ -211,6 +211,7 @@ namespace HM2.ViewModel
                 {
                     var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
                     roomsModel.CreateBooking(serviceExtensions , 1 , currentUser.Id , _startDate , _endDate , _selectedRoom.Id , double.Parse(TotalAmountSum));
+                    onWindowClose();
                 }
                 else
                 {
