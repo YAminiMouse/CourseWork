@@ -61,7 +61,7 @@
                                 Command="{Binding ChangeClientInformation}"/>
                         <Button Content="Удалить" 
                                 Width="100"
-                                Command="{Binding DeleteClient}"/>
+                                />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -194,7 +194,7 @@
                                     Content="Удалить" 
                                     Width="100" />
                         </StackPanel>
-                        
+
                         <DataGrid AutoGenerateColumns="False" 
                                   CanUserAddRows="True" 
                                   HorizontalAlignment="Stretch" 
@@ -213,10 +213,116 @@
             </TabItem>
 
             <TabItem Header="Отчеты">
-                <Grid>
-                    <TextBlock Text="Manage reports here." Margin="10" TextWrapping="Wrap"/>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Кнопка "Создать отчет" -->
+                    <Button Content="Создать отчет" 
+                            Grid.Row="0" Grid.Column="1" 
+                            Width="150" Height="30" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Bottom" 
+                            Margin="10,0,0,10"
+                            Command="{Binding CreateReport}"/>
+
+                    <!-- Период времени -->
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
+                        <TextBlock Text="Выберите период:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <!-- Первый DatePicker -->
+                                <ColumnDefinition Width="20" />
+                                <!-- Разделитель -->
+                                <ColumnDefinition Width="Auto" />
+                                <!-- Второй DatePicker -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Первый DatePicker -->
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,10,0">
+                                <TextBlock Text="С" VerticalAlignment="Center" Margin="0,0,0,5" />
+                                <DatePicker SelectedDate="{Binding StartDate , UpdateSourceTrigger = PropertyChanged}" Width="150" />
+                            </StackPanel>
+
+                            <!-- Второй DatePicker -->
+                            <StackPanel Orientation="Vertical" Grid.Column="2" Margin="10,0,0,0">
+                                <TextBlock Text="По" VerticalAlignment="Center" Margin="0,0,0,5" />
+                                <DatePicker SelectedDate="{Binding EndDate , UpdateSourceTrigger = PropertyChanged}" Width="150" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Общая информация -->
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+                        <TextBlock Text="Общая информация" FontWeight="Bold" FontSize="16" />
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Общее количество номеров:" VerticalAlignment="Center" />
+                            <TextBox Name="CountRoomsTextBox" 
+                                     Text="{Binding CountRooms , UpdateSourceTrigger=PropertyChanged}" 
+                                     IsReadOnly="True" 
+                                     Margin="5,0,0,0" 
+                                     Width="100" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Занятых номеров:" VerticalAlignment="Center" />
+                            <TextBox Name="CountBusyRoomsTextBox" 
+                                     Text="{Binding CountBusyRooms , UpdateSourceTrigger=PropertyChanged}"  
+                                     IsReadOnly="True" Margin="5,0,0,0" Width="100" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Количество броней:" VerticalAlignment="Center" />
+                            <TextBox Name="CountBookingsTextBox" 
+                                     Text="{Binding CountBookings , UpdateSourceTrigger=PropertyChanged}" 
+                                     IsReadOnly="True" Margin="5,0,0,0" Width="100" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Выручка -->
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+                        <TextBlock Text="Выручка" FontWeight="Bold" FontSize="16" />
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Выручка за занятые номера:" VerticalAlignment="Center" />
+                            <TextBox Name="RevenueRoomsTextBox" 
+                                     Text="{Binding RevenueRooms , UpdateSourceTrigger=PropertyChanged}"  
+                                     IsReadOnly="True" 
+                                     Margin="5,0,0,0" Width="150" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Выручка за услуги:" VerticalAlignment="Center" />
+                            <TextBox Name="RevenueAddServiceTextBox" 
+                                     Text="{Binding RevenueAddService , UpdateSourceTrigger=PropertyChanged}" 
+                                     IsReadOnly="True" 
+                                     Margin="5,0,0,0" Width="150" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Таблицы -->
+                    <TabControl Grid.Row="2" Grid.ColumnSpan="2" Margin="10">
+                        <!-- Таблица занятых номеров -->
+                        <TabItem Header="Занятые номера">
+                            <DataGrid AutoGenerateColumns="True" Margin="10">
+                                <!-- В реальном приложении данные привязываются через DataBinding -->
+                            </DataGrid>
+                        </TabItem>
+
+                        <!-- Таблица забронированных номеров -->
+                        <TabItem Header="Забронированные номера">
+                            <DataGrid AutoGenerateColumns="True" Margin="10">
+                                <!-- В реальном приложении данные привязываются через DataBinding -->
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

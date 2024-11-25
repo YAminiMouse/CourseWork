@@ -181,6 +181,104 @@ namespace HM2.ViewModel.Admin
             }
         }
 
+        private string _countRooms;
+        public string CountRooms
+        {
+            get
+            {
+                return _countRooms;
+            }
+            set 
+            { 
+                _countRooms = value; 
+                RaisePropertyChanged("CountRooms"); 
+            }
+        }
+
+        private string _countBusyRooms;
+        public string CountBusyRooms
+        {
+            get
+            {
+                return _countBusyRooms;
+            }
+            set
+            {
+                _countBusyRooms = value; 
+                RaisePropertyChanged("CountBusyRooms");
+            }
+        }
+
+        private string _countBookings;
+        public string CountBookings
+        {
+            get
+            {
+                return _countBookings;
+            }
+            set
+            {
+                _countBookings = value;
+                RaisePropertyChanged("CountBookings");
+            }
+        }
+
+        private string _revenueRooms;
+        public string RevenueRooms
+        {
+            get
+            {
+                return _revenueRooms;
+            }
+            set
+            {
+                _countBookings = value;
+                RaisePropertyChanged("RevenueRooms");
+            }
+        }
+
+        private string _revenueAddService;
+        public string RevenueAddService
+        {
+            get
+            {
+                return _revenueAddService;
+            }
+            set
+            {
+                _countBookings = value;
+                RaisePropertyChanged("RevenueAddService");
+            }
+        }
+
+        private DateTime _startDate;
+        public DateTime StartDate
+        {
+            get
+            {
+                return _startDate;
+            }
+            set
+            {
+                _startDate = value;
+                RaisePropertyChanged("StartDate");
+            }
+        }
+
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get
+            {
+                return _endDate;
+            }
+            set
+            {
+                _endDate = value;
+                RaisePropertyChanged("EndDate");
+            }
+        }
+
         public ICommand FindClient { get; set; }
         public ICommand ChangeClientInformation { get; set; }
         public ICommand AddNewTypeRoom { get; set; }
@@ -193,6 +291,7 @@ namespace HM2.ViewModel.Admin
         public ICommand DeleteTypeRoom { get; set; }
         public ICommand PopulateClient { get; set; }
         public ICommand EvictClient { get; set; }
+        public ICommand CreateReport { get; set; }
         public AdminViewModel() 
         {
             AllUsers = new ObservableCollection<UserExtension>();
