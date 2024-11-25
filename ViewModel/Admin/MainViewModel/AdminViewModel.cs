@@ -232,7 +232,7 @@ namespace HM2.ViewModel.Admin
             }
             set
             {
-                _countBookings = value;
+                _revenueRooms = value;
                 RaisePropertyChanged("RevenueRooms");
             }
         }
@@ -246,7 +246,7 @@ namespace HM2.ViewModel.Admin
             }
             set
             {
-                _countBookings = value;
+                _revenueAddService = value;
                 RaisePropertyChanged("RevenueAddService");
             }
         }
