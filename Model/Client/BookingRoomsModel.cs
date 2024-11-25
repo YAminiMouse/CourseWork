@@ -38,11 +38,12 @@ namespace HM2.Model
             DateTime truncatedToDaysEndDate = new DateTime(end.Year, end.Month, end.Day);
             using (HotelModel hm = new HotelModel())
             {
-                var req1 = (from room in hm.Room where room.IdTypeRoom == type.Id select room).ToList();
+                var req1 = (from room in hm.Room where room.IdTypeRoom == type.Id && room.CreateDate <= start && ((room.DeleteDate != null && end < room.DeleteDate) || room.DeleteDate == null) select room).ToList();
                 var req2 = (from room in hm.Room
                             join booking in hm.Booking on room.Id equals booking.IdRoom
                             where booking.ArrivalDate <= truncatedToDaysEndDate && booking.DepatureDate >= truncatedToDaysStartDate &&
-                            room.IdTypeRoom == type.Id && (booking.IdStatus == 1 || booking.IdStatus == 2)
+                            room.IdTypeRoom == type.Id && (booking.IdStatus == 1 || booking.IdStatus == 2) &&
+                            (room.CreateDate <= start && ((room.DeleteDate != null && end < room.DeleteDate) || room.DeleteDate == null))
                             select room).ToList();
                 var rooms = req1.Except(req2).ToList();
                 List<RoomExtension> roomsExtensions = new List<RoomExtension>();
