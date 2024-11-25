@@ -40,7 +40,7 @@ namespace HM2.ViewModel.Admin
                                         where booking.ArrivalDate <= truncatedToDaysEndDate && booking.DepatureDate >= truncatedToDaysStartDate &&
                                         (booking.IdStatus == 1) &&
                                         (room.CreateDate <= truncatedToDaysStartDate && ((room.DeleteDate != null && truncatedToDaysEndDate < room.DeleteDate) || room.DeleteDate == null))
-                                        select room).ToList();
+                                        select booking).ToList();
 
                     var busyRoomsBooking = (from booking in hm.Booking
                                             join room in hm.Room on booking.IdRoom equals room.Id
@@ -53,12 +53,17 @@ namespace HM2.ViewModel.Admin
                     double totalSumBooking = 0.0;
                     foreach (var item in busyRoomsBooking)
                     {
+                        BusyRoomsBooking.Add(new UserBookingExtension(item));
                         totalSumBooking += item.Room.TypeRoom.cost * (EndDate - StartDate).Days;
                         var stringServiceList = (from str in hm.StringService where str.IdBooking == item.Id select str).ToList();
                         foreach (var stringService in stringServiceList)
                         {
                             totalSumStringService += stringService.cost;
                         }
+                    }
+                    foreach(var item in bookings)
+                    {
+                        WaitRoomsBooking.Add(new UserBookingExtension(item));
                     }
                     RevenueRooms = totalSumBooking.ToString();
                     RevenueAddService = totalSumStringService.ToString();

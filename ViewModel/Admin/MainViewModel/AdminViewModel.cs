@@ -279,6 +279,34 @@ namespace HM2.ViewModel.Admin
             }
         }
 
+        private ObservableCollection<UserBookingExtension> _busyRoomsBooking;
+        public ObservableCollection<UserBookingExtension> BusyRoomsBooking
+        {
+            get
+            {
+                return _busyRoomsBooking;
+            }
+            set
+            {
+                _busyRoomsBooking = value;
+                RaisePropertyChanged("BusyRoomsBooking");
+            }
+        }
+
+        private ObservableCollection<UserBookingExtension> _waitRoomsBooking;
+        public ObservableCollection<UserBookingExtension> WaitRoomsBooking
+        {
+            get
+            {
+                return _waitRoomsBooking;
+            }
+            set
+            {
+                _waitRoomsBooking = value;
+                RaisePropertyChanged("WaitRoomsBooking");
+            }
+        }
+
         public ICommand FindClient { get; set; }
         public ICommand ChangeClientInformation { get; set; }
         public ICommand AddNewTypeRoom { get; set; }
@@ -299,6 +327,8 @@ namespace HM2.ViewModel.Admin
             BookingList = new ObservableCollection<UserBookingExtension>();
             AddServices = new ObservableCollection<AddServiceExtension>();
             AllStatusBooking = new ObservableCollection<Status>();
+            BusyRoomsBooking = new ObservableCollection<UserBookingExtension>();
+            WaitRoomsBooking = new ObservableCollection<UserBookingExtension>();
         }
     }
 }

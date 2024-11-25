@@ -343,10 +343,9 @@
                     <TabControl Grid.Row="2" Grid.ColumnSpan="2" Margin="10">
                         <!-- Таблица занятых номеров -->
                         <TabItem Header="Занятые номера">
-                            <DataGrid AutoGenerateColumns="True" 
+                            <DataGrid AutoGenerateColumns="False" 
                                       Margin="10"
-                                      SelectedItem="{Binding BusyRoomsBooking}"
-                                      ItemsSource="{Binding BusyRoomsItem}">
+                                      ItemsSource="{Binding BusyRoomsBooking}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Дата заселения" Binding="{Binding ArrivalDate, StringFormat=d}"/>
                                     <DataGridTextColumn Header="Дата выселения" Binding="{Binding DepatureDate, StringFormat=d}"/>
@@ -358,15 +357,14 @@
 
                         <!-- Таблица забронированных номеров -->
                         <TabItem Header="Забронированные номера">
-                            <DataGrid AutoGenerateColumns="True" 
+                            <DataGrid AutoGenerateColumns="False" 
                                       Margin="10"
-                                      SelectedItem="{Binding WaitRoomsBooking}"
-                                      ItemsSource="{Binding WaitRoomsBookingItem}">
+                                      ItemsSource="{Binding WaitRoomsBooking}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Дата заселения" Binding="{Binding ArrivalDate, StringFormat=d}"/>
                                     <DataGridTextColumn Header="Дата выселения" Binding="{Binding DepatureDate, StringFormat=d}"/>
                                     <DataGridTextColumn Header="Номер комнаты"  Binding="{Binding RoomNumber}"/>
-                                    <DataGridTextColumn Header="Тип комнаты"  Binding="{Binding TypeRoom}"/>
+                                    <DataGridTextColumn Header="Тип комнаты"  Binding="{Binding NameTypeRoom}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </TabItem>
