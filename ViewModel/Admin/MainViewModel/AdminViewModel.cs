@@ -322,6 +322,8 @@ namespace HM2.ViewModel.Admin
         public ICommand CreateReport { get; set; }
         public AdminViewModel() 
         {
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
             AllUsers = new ObservableCollection<UserExtension>();
             AllTypes = new ObservableCollection<TypeRoomExtension>();
             BookingList = new ObservableCollection<UserBookingExtension>();

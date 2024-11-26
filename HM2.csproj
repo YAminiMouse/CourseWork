@@ -69,6 +69,7 @@
     <Compile Include="AdditionalEntities\CapacityExtension.cs" />
     <Compile Include="AdditionalEntities\ComfortExtension.cs" />
     <Compile Include="AdditionalEntities\DiscountExtension.cs" />
+    <Compile Include="AdditionalEntities\Report.cs" />
     <Compile Include="AdditionalEntities\RoomExtension.cs" />
     <Compile Include="AdditionalEntities\StringServiceExtension.cs" />
     <Compile Include="AdditionalEntities\TypeRoomExtension.cs" />

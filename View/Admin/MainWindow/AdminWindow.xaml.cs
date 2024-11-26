@@ -55,17 +55,22 @@ namespace HM2.View.Admin
                     DataContext = new AdminTypeRoomViewModel(windowContext);
                     break;
                 }
-                case 2:
+                //case 2:
+                //{
+                //    DataContext = new AdminBookingViewModel(windowContext);
+                //    break;
+                //}
+                case 3:
                 {
                     DataContext = new AdminBookingViewModel(windowContext);
                     break;
                 }
-                case 3:
+                case 4:
                 {
                     DataContext = new AdminAddServiceViewModel(windowContext);
                     break;
                 }
-                case 4:
+                case 5:
                 {
                     DataContext = new AdminReportsViewModel(windowContext);
                     break;
