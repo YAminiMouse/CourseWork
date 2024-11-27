@@ -320,6 +320,7 @@ namespace HM2.ViewModel.Admin
         public ICommand PopulateClient { get; set; }
         public ICommand EvictClient { get; set; }
         public ICommand CreateReport { get; set; }
+        public ICommand ExportReport { get; set; }
         public AdminViewModel() 
         {
             StartDate = DateTime.Now;

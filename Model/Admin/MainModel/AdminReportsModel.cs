@@ -1,6 +1,9 @@
 ﻿using DAL.AdditionalEntities;
 using DAL.Entities;
 using HM2.AdditionalEntities;
+using PdfSharp.Drawing.Layout;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +74,27 @@ namespace HM2.Model.Admin.MainModel
             }
 
             return report;
+        }
+
+        public PdfDocument PreparePDFReport(DateTime start , DateTime end , string revenueRooms, string revenueAddService, string countRooms , string countBusyRooms , string countBookings)
+        {
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Отчет";
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Verdana", 20, XFontStyleEx.Italic);
+            XTextFormatter tf = new XTextFormatter(gfx);
+            string text = "                                    Отчет\n\n\n\n" +
+            string.Format("  За период с {0} по {1}\n\n\n", start.ToString("dd/MM/yyyy"), end.ToString("dd/MM/yyyy")) +
+            string.Format("  Общая информация:\n\n") +
+            string.Format("          Общее количество номеров: {0}\n", countRooms) +
+            string.Format("          Занятых номеров: {0}\n", countBusyRooms) +
+            string.Format("          Количество броней: {0}\n\n\n\n", countBookings) +
+            string.Format("  Выручка:\n\n") +
+            string.Format("          Выручка за занятые номера: {0} руб.\n", revenueRooms) +
+            string.Format("          Выручка за услуги: {0} руб.\n", revenueAddService);
+            tf.DrawString(text, font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopLeft);
+            return document;
         }
     }
 }
