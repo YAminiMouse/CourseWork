@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin.SubViewModel
@@ -72,12 +73,20 @@ namespace HM2.ViewModel.Admin.SubViewModel
             addNewServiceModel = new AddNewServiceModel();
             ConfirmService = new RelayCommand(_ =>
             {
-                if (CostService.Length != 0 && NameService.Length != 0)
+                try
                 {
-                    addNewServiceModel.ConfirmService(CostService, NameService);
+                    if (CostService.Length != 0 && NameService.Length != 0)
+                    {
+                        addNewServiceModel.ConfirmService(CostService, NameService);
+                    }
+                    windowContext.GetCurrentWindow().Close();
+                    _onWindowClose();
                 }
-                windowContext.GetCurrentWindow().Close();
-                onWindowClose();
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

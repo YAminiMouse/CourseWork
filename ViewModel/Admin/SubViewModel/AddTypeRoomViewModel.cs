@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin
@@ -126,27 +127,42 @@ namespace HM2.ViewModel.Admin
             AllComforts = new ObservableCollection<ComfortExtension>();
             addTypeRoomModel = new AddTypeRoomModel();
 
-            var capacities = addTypeRoomModel.GetAllCapacities();
-            foreach (var item in capacities)
+            try
             {
-               AllCapacities.Add(item);
-            }
+                var capacities = addTypeRoomModel.GetAllCapacities();
+                foreach (var item in capacities)
+                {
+                    AllCapacities.Add(item);
+                }
 
-            var comforts = addTypeRoomModel.GetAllComforts();
-            foreach (var item in comforts)
-            {
-                AllComforts.Add(item);
+                var comforts = addTypeRoomModel.GetAllComforts();
+                foreach (var item in comforts)
+                {
+                    AllComforts.Add(item);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             AddNewTypeRoom = new RelayCommand(_ =>
             {
-                Debug.WriteLine("btn Add is pressed");
-                if (SelectedCapacity != null && SelectedComfort != null && Cost.Length != 0)
+                try
                 {
-                    addTypeRoomModel.AddNewTypeRoom(Cost , SelectedComfort.Id , SelectedCapacity.Id , SelectedCapacity.name , SelectedComfort.name , Description);
+                    if (SelectedCapacity != null && SelectedComfort != null && Cost.Length != 0)
+                    {
+                        addTypeRoomModel.AddNewTypeRoom(Cost, SelectedComfort.Id, SelectedCapacity.Id, SelectedCapacity.name, SelectedComfort.name, Description);
+                    }
+                    windowContext.GetCurrentWindow().Close();
+                    onWindowClose();
                 }
-                windowContext.GetCurrentWindow().Close();
-                onWindowClose();
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

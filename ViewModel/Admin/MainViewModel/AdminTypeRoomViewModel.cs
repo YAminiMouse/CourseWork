@@ -23,11 +23,18 @@ namespace HM2.ViewModel.Admin
 
         private void UpdateTypesRoom()
         {
-            AllTypes.Clear();
-            List<TypeRoomExtension> typesRoom = adminTypeRoomModel.GetAllTypes();
-            foreach (TypeRoomExtension typeRoom in typesRoom)
+            try
             {
-                AllTypes.Add(typeRoom);
+                AllTypes.Clear();
+                List<TypeRoomExtension> typesRoom = adminTypeRoomModel.GetAllTypes();
+                foreach (TypeRoomExtension typeRoom in typesRoom)
+                {
+                    AllTypes.Add(typeRoom);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         
@@ -35,11 +42,17 @@ namespace HM2.ViewModel.Admin
         {
             adminTypeRoomModel = new AdminTypeRoomModel();
 
-
-            List<TypeRoomExtension> typesRoom = adminTypeRoomModel.GetAllTypes();
-            foreach (TypeRoomExtension typeRoom in typesRoom)
+            try
             {
-                AllTypes.Add(typeRoom);
+                List<TypeRoomExtension> typesRoom = adminTypeRoomModel.GetAllTypes();
+                foreach (TypeRoomExtension typeRoom in typesRoom)
+                {
+                    AllTypes.Add(typeRoom);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
 
@@ -63,8 +76,15 @@ namespace HM2.ViewModel.Admin
             {
                 if (SelectedType != null)
                 {
-                    adminTypeRoomModel.DeleteSelectedType(SelectedType.Id);
-                    UpdateTypesRoom();
+                    try
+                    {
+                        adminTypeRoomModel.DeleteSelectedType(SelectedType.Id);
+                        UpdateTypesRoom();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             });
         }

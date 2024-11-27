@@ -28,10 +28,17 @@ namespace HM2.ViewModel.Admin
 
         private void FillAllUsers()
         {
-            List<UserExtension> users = adminClientsModel.GetAllUsers();
-            foreach (UserExtension user in users)
+            try
             {
-                AllUsers.Add(user);
+                List<UserExtension> users = adminClientsModel.GetAllUsers();
+                foreach (UserExtension user in users)
+                {
+                    AllUsers.Add(user);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -44,11 +51,19 @@ namespace HM2.ViewModel.Admin
                 AllUsers.Clear();
                 if (SelectedPhoneClient.Length != 0)
                 {
-                    List<UserExtension> selectedUsers = adminClientsModel.GetUserByNumber(SelectedPhoneClient);
-                    foreach (UserExtension user in selectedUsers)
+                    try
                     {
-                        AllUsers.Add(user);
+                        List<UserExtension> selectedUsers = adminClientsModel.GetUserByNumber(SelectedPhoneClient);
+                        foreach (UserExtension user in selectedUsers)
+                        {
+                            AllUsers.Add(user);
+                        }
                     }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
                 }
                 else
                 {

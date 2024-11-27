@@ -18,6 +18,7 @@ namespace HM2.Model.Admin.MainModel
             List<UserBookingExtension> bookings = new List<UserBookingExtension>();
             using(HotelModel hm =  new HotelModel())
             {
+
                 list = (from b in hm.Booking select b).ToList();
                 foreach(var item in list)
                 {
@@ -33,6 +34,7 @@ namespace HM2.Model.Admin.MainModel
             var list = new List<Status>();
             using(HotelModel hm = new HotelModel())
             {
+
                 list = (from s in hm.Status select s).ToList();
             }
             return list;
@@ -44,6 +46,7 @@ namespace HM2.Model.Admin.MainModel
             List<UserBookingExtension> bookings = new List<UserBookingExtension>();
             using(HotelModel hm = new HotelModel())
             {
+
                 list = (from b in hm.Booking where b.IdStatus == IdSatus && b.User.number == number select b).ToList();
                 foreach (var item in list)
                 {
@@ -58,6 +61,7 @@ namespace HM2.Model.Admin.MainModel
             //var booking = new Booking();
             using(HotelModel hm = new HotelModel())
             {
+
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
                 booking.IdStatus = 3;
                 hm.SaveChanges();
@@ -68,6 +72,7 @@ namespace HM2.Model.Admin.MainModel
         {
             using(HotelModel hm = new HotelModel())
             {
+
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
                 booking.IdStatus = 2;
                 var user = booking.User;
@@ -101,6 +106,7 @@ namespace HM2.Model.Admin.MainModel
         {
             using (HotelModel hm = new HotelModel())
             {
+                throw new Exception("блаблаблаблабла");
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
                 booking.IdStatus = 4;
                 hm.SaveChanges();

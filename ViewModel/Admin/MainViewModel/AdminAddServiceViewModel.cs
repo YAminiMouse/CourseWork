@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HM2.ViewModel.Admin
 {
@@ -20,21 +21,38 @@ namespace HM2.ViewModel.Admin
         private AdminAddServiceModel _adminAddServiceModel;
         private void UpdateAddServices()
         {
-            AddServices.Clear();
-            var addServices = _adminAddServiceModel.GetAllGetService();
-            foreach (var item in addServices)
+            try
             {
-                AddServices.Add(new AddServiceExtension(item));
+                AddServices.Clear();
+                var addServices = _adminAddServiceModel.GetAllGetService();
+                foreach (var item in addServices)
+                {
+                    AddServices.Add(new AddServiceExtension(item));
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         public AdminAddServiceViewModel(WindowContext windowContext) 
         {
-            _adminAddServiceModel = new AdminAddServiceModel();
-            var addServices = _adminAddServiceModel.GetAllGetService();
-            foreach(var item in addServices)
+            
+            try
             {
-                AddServices.Add(new AddServiceExtension(item));
+                _adminAddServiceModel = new AdminAddServiceModel();
+                var addServices = _adminAddServiceModel.GetAllGetService();
+                foreach (var item in addServices)
+                {
+                    AddServices.Add(new AddServiceExtension(item));
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
 
             AddNewService = new RelayCommand(_ =>
@@ -57,11 +75,19 @@ namespace HM2.ViewModel.Admin
 
             DeleteAddService = new RelayCommand(_ =>
             {
-                if (SelectedAddservice != null)
+                try
                 {
-                    _adminAddServiceModel.DeleteSelectedService(SelectedAddservice.Id);
-                    UpdateAddServices();
+                    if (SelectedAddservice != null)
+                    {
+                        _adminAddServiceModel.DeleteSelectedService(SelectedAddservice.Id);
+                        UpdateAddServices();
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

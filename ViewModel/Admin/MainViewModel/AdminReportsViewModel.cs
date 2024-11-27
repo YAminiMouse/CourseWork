@@ -32,7 +32,19 @@ namespace HM2.ViewModel.Admin
 
             CreateReport = new RelayCommand(_ =>
             {
-                Report report = adminReportsModel.GetData(StartDate, EndDate);
+                Report report = null;
+                try
+                {
+                    report = adminReportsModel.GetData(StartDate, EndDate);
+                }
+                catch(Exception ex)  
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                if (report == null)
+                {
+                    return;
+                }
                 foreach (var item in report.BusyRoomsBooking)
                 {
                     BusyRoomsBooking.Add(item);
@@ -50,14 +62,22 @@ namespace HM2.ViewModel.Admin
 
             ExportReport = new RelayCommand(_ =>
             {
-                PdfDocument pdfDocument = adminReportsModel.PreparePDFReport(StartDate , EndDate , RevenueRooms , RevenueAddService , CountRooms , CountBusyRooms , CountBookings);
-                System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
-                saveFileDialog.DefaultExt = "pdf";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    pdfDocument.Save(saveFileDialog.FileName);
+                    PdfDocument pdfDocument = adminReportsModel.PreparePDFReport(StartDate, EndDate, RevenueRooms, RevenueAddService, CountRooms, CountBusyRooms, CountBookings);
+                    System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+                    saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                    saveFileDialog.DefaultExt = "pdf";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        pdfDocument.Save(saveFileDialog.FileName);
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

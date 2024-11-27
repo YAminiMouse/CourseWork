@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HM2.ViewModel.Admin
 {
@@ -20,12 +21,20 @@ namespace HM2.ViewModel.Admin
 
         private void UpdateBookingList()
         {
-            BookingList.Clear();
-            var allBookings = _adminBookingModel.GetAllBookings();
-            foreach (var item in allBookings)
+            try
             {
-                BookingList.Add(item);
+                BookingList.Clear();
+                var allBookings = _adminBookingModel.GetAllBookings();
+                foreach (var item in allBookings)
+                {
+                    BookingList.Add(item);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         public AdminBookingViewModel(WindowContext windowContext) 
@@ -34,56 +43,96 @@ namespace HM2.ViewModel.Admin
 
             UpdateBookingList();
 
-            var statuses = _adminBookingModel.GetAllStatuses();
-            foreach(var item in statuses)
+            try
             {
-                AllStatusBooking.Add(item);
+                var statuses = _adminBookingModel.GetAllStatuses();
+                foreach (var item in statuses)
+                {
+                    AllStatusBooking.Add(item);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             FindClientBooking = new RelayCommand(_ =>
             {
-                BookingList.Clear();
-                if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0)
+                try
                 {
-                    var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking, SelectedStatusBooking.Id);
-                    foreach(var item in bookings)
+                    BookingList.Clear();
+                    if (SelectedStatusBooking != null && SelectedPhoneClientBooking.Length != 0)
                     {
-                        BookingList.Add(item);
-                    }
+                        var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking, SelectedStatusBooking.Id);
+                        foreach (var item in bookings)
+                        {
+                            BookingList.Add(item);
+                        }
 
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             RefuseBooking = new RelayCommand(_ =>
             {
-                if (SelectedBooking != null)
+                try
                 {
-                    _adminBookingModel.RefuseBooking(SelectedBooking.Id);
-                    BookingList.Clear();
-                    var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking,SelectedStatusBooking.Id);
-                    foreach(var item in bookings)
+                    if (SelectedBooking != null)
                     {
-                        BookingList.Add(item);
+                        _adminBookingModel.RefuseBooking(SelectedBooking.Id);
+                        BookingList.Clear();
+                        var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking, SelectedStatusBooking.Id);
+                        foreach (var item in bookings)
+                        {
+                            BookingList.Add(item);
+                        }
                     }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             PopulateClient = new RelayCommand(_ =>
             {
-                if (SelectedBooking != null)
+                try
                 {
-                    _adminBookingModel.PopulateClientAndRecalculateDiscount(SelectedBooking.Id);
-                    UpdateBookingList();
+                    if (SelectedBooking != null)
+                    {
+                        _adminBookingModel.PopulateClientAndRecalculateDiscount(SelectedBooking.Id);
+                        UpdateBookingList();
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             EvictClient = new RelayCommand(_ =>
             {
-                if (SelectedBooking != null)
+                try
                 {
-                    _adminBookingModel.EvictClient(SelectedBooking.Id);
-                    UpdateBookingList();
+                    if (SelectedBooking != null)
+                    {
+                        _adminBookingModel.EvictClient(SelectedBooking.Id);
+                        UpdateBookingList();
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

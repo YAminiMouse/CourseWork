@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin.SubViewModel
@@ -57,19 +58,35 @@ namespace HM2.ViewModel.Admin.SubViewModel
         private OnWindowClose _onWindowClose;
         public ChangeServiceInformationViewModel(WindowContext windowContext , OnWindowClose onWindowClose)
         {
-            _onWindowClose = onWindowClose;
-            changeServiceInformationModel = new ChangeServiceInformationModel();
-            var selectedAddService = (AddServiceExtension)windowContext.GetResourse("SELECTED_ADD_SERVICE");
+            AddServiceExtension selectedAddService = null;
+            try
+            {
+                _onWindowClose = onWindowClose;
+                changeServiceInformationModel = new ChangeServiceInformationModel();
+                selectedAddService = (AddServiceExtension)windowContext.GetResourse("SELECTED_ADD_SERVICE");
 
-            SelectedCostService = selectedAddService.cost.ToString();
-            SelectedNameService = selectedAddService.name;
+                SelectedCostService = selectedAddService.cost.ToString();
+                SelectedNameService = selectedAddService.name;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             EditAddService = new RelayCommand(_ =>
             {
-                changeServiceInformationModel.EditAddService(selectedAddService.Id, SelectedCostService, SelectedNameService);
-                var currentWindow = windowContext.GetCurrentWindow();
-                currentWindow.Close();
-                _onWindowClose();
+                try
+                {
+                    changeServiceInformationModel.EditAddService(selectedAddService.Id, SelectedCostService, SelectedNameService);
+                    var currentWindow = windowContext.GetCurrentWindow();
+                    currentWindow.Close();
+                    _onWindowClose();
+                }
+                catch( Exception ex )
+                {
+                    MessageBox.Show(ex.Message);
+                }
             });
         }
     }

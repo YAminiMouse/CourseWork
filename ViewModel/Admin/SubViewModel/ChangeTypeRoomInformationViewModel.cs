@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin
@@ -120,35 +121,51 @@ namespace HM2.ViewModel.Admin
         private OnWindowClose _onWindowClose;
         public ChangeTypeRoomInformationViewModel(WindowContext windowContext, OnWindowClose onWindowClose)
         {
-            _onWindowClose = onWindowClose;
-            changeTypeRoomInformationModel = new ChangeTypeRoomInformationModel();
-            Comforts = new ObservableCollection<ComfortExtension>();
-            Capacities = new ObservableCollection<CapacityExtension>();
+            TypeRoomExtension selectedType = null;
+            try
+            {
+                _onWindowClose = onWindowClose;
+                changeTypeRoomInformationModel = new ChangeTypeRoomInformationModel();
+                Comforts = new ObservableCollection<ComfortExtension>();
+                Capacities = new ObservableCollection<CapacityExtension>();
 
-            var selectedType = (TypeRoomExtension)windowContext.GetResourse("SELECTED_TYPE");
-            var comfortList = changeTypeRoomInformationModel.GetAllComforts();
-            foreach (var item in comfortList)
-            {
-                Comforts.Add(item);
+                selectedType = (TypeRoomExtension)windowContext.GetResourse("SELECTED_TYPE");
+                var comfortList = changeTypeRoomInformationModel.GetAllComforts();
+                foreach (var item in comfortList)
+                {
+                    Comforts.Add(item);
+                }
+                var capacityList = changeTypeRoomInformationModel.GetAllCapacities();
+                foreach (var item in capacityList)
+                {
+                    Capacities.Add(item);
+                }
+                SelectedCost = selectedType.cost.ToString();
+                SelectedDescription = selectedType.description;
+                var comfort = changeTypeRoomInformationModel.GetComfort(selectedType.IdComfort, comfortList);
+                var capacity = changeTypeRoomInformationModel.GetCapacity(selectedType.IdCapacity, capacityList);
+                SelectedCapacity = capacity;
+                SelectedComfort = comfort;
             }
-            var capacityList = changeTypeRoomInformationModel.GetAllCapacities();
-            foreach (var item in capacityList)
+            catch(Exception ex)
             {
-                Capacities.Add(item);
+                MessageBox.Show(ex.Message);
             }
-            SelectedCost = selectedType.cost.ToString();
-            SelectedDescription = selectedType.description;
-            var comfort = changeTypeRoomInformationModel.GetComfort(selectedType.IdComfort , comfortList);
-            var capacity = changeTypeRoomInformationModel.GetCapacity(selectedType.IdCapacity , capacityList);
-            SelectedCapacity = capacity;
-            SelectedComfort = comfort;
 
             ConfirmChanges = new RelayCommand(_ =>
             {
-                changeTypeRoomInformationModel.ChangeInformation(selectedType.Id, SelectedCost, SelectedDescription, SelectedCapacity.Id, SelectedComfort.Id);
-                var currentWindow = windowContext.GetCurrentWindow();
-                currentWindow.Close();
-                _onWindowClose();
+                try
+                {
+                    changeTypeRoomInformationModel.ChangeInformation(selectedType.Id, SelectedCost, SelectedDescription, SelectedCapacity.Id, SelectedComfort.Id);
+                    var currentWindow = windowContext.GetCurrentWindow();
+                    currentWindow.Close();
+                    _onWindowClose();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

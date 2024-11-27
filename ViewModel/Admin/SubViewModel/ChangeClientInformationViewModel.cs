@@ -101,35 +101,52 @@ namespace HM2.ViewModel.Admin
         private OnWindowClose _onWindowClose;
         public ChangeClientInformationViewModel(WindowContext windowContext, OnWindowClose onWindowClose)
         {
-            _onWindowClose = onWindowClose;
-            changeClientInformationModel = new ChangeClientInformationModel();
-            Discounts = new ObservableCollection<DiscountExtension>();
-
-            var selectedUser = (UserExtension)windowContext.GetResourse("SELECTED_USER");
-            FIOUser = selectedUser.FIO;
-            MoneySpentUser = (double)selectedUser.MoneySpent;
-            NumberUser = selectedUser.Number;
-
-            List<DiscountExtension> discounts = changeClientInformationModel.GetAllDiscounts();
-            foreach(var d in discounts)
+            UserExtension selectedUser = null;
+            try
             {
-                Discounts.Add(d);
+                _onWindowClose = onWindowClose;
+                changeClientInformationModel = new ChangeClientInformationModel();
+                Discounts = new ObservableCollection<DiscountExtension>();
+
+                selectedUser = (UserExtension)windowContext.GetResourse("SELECTED_USER");
+                FIOUser = selectedUser.FIO;
+                MoneySpentUser = (double)selectedUser.MoneySpent;
+                NumberUser = selectedUser.Number;
+
+                List<DiscountExtension> discounts = changeClientInformationModel.GetAllDiscounts();
+                foreach (var d in discounts)
+                {
+                    Discounts.Add(d);
+                }
+
+                var userDiscount = changeClientInformationModel.GetUserDiscount(selectedUser.IdDiscount, discounts);
+
+                _previousDiscount = userDiscount;
+                SelectedDiscount = userDiscount;
             }
-
-            var userDiscount = changeClientInformationModel.GetUserDiscount(selectedUser.IdDiscount, discounts);
-
-            _previousDiscount = userDiscount;
-            SelectedDiscount = userDiscount;
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             ChangeClientInformation = new RelayCommand(_ =>
             {
-                if (SelectedDiscount != _previousDiscount)
+                try
                 {
-                    changeClientInformationModel.ChangeClientDiscount(selectedUser, _selectedDiscount);
+                    if (SelectedDiscount != _previousDiscount && selectedUser != null)
+                    {
+                        changeClientInformationModel.ChangeClientDiscount(selectedUser, _selectedDiscount);
+                    }
+                    var currentWindow = windowContext.GetCurrentWindow();
+                    currentWindow.Close();
+                    _onWindowClose();
                 }
-                var currentWindow = windowContext.GetCurrentWindow();
-                currentWindow.Close();
-                _onWindowClose();
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }
