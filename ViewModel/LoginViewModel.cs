@@ -63,20 +63,24 @@ namespace HM2.ViewModel
 
             NavigateToMainWindow = new RelayCommand(_ =>
             {
-                UserExtension user = _userModel.GetAuthenticatedUser(LoginUser, PasswordUser);
-                //windowContext.CurrentUser = user;
-                windowContext.SetResource("CURRENT_USER", user);
-                var currentWindow = windowContext.GetCurrentWindow(); // окно LoginWindow
-                if (user != null)
+                try
                 {
-                    var windowBuilder = (WindowsBuilder)windowContext.GetResourse("WINDOW_BUILDER");
-                    Window mainWindow = (Window)windowBuilder.Build(_userModel.GetWindowId(user));
-                    mainWindow.Show();
-                    currentWindow.Close();
+                    UserExtension user = _userModel.GetAuthenticatedUser(LoginUser, PasswordUser);
+                    windowContext.SetResource("CURRENT_USER", user);
+                    var currentWindow = windowContext.GetCurrentWindow(); // окно LoginWindow
+                    if (user != null)
+                    {
+                        var windowBuilder = (WindowsBuilder)windowContext.GetResourse("WINDOW_BUILDER");
+                        Window mainWindow = (Window)windowBuilder.Build(_userModel.GetWindowId(user));
+                        mainWindow.Show();
+                        currentWindow.Close();
+                    }
                 }
-                Debug.WriteLine("Login is pressed");
-                Debug.WriteLine(LoginUser);
-                Debug.WriteLine(PasswordUser);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }
