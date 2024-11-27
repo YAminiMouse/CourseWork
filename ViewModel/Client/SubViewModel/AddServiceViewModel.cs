@@ -45,13 +45,20 @@ namespace HM2.ViewModel
             }
             set
             {
-                _selectedAddService = value;
-                if (_selectedAddService != null)
+                try
                 {
-                    Cost = _selectedAddService.cost;
+                    _selectedAddService = value;
+                    if (_selectedAddService != null)
+                    {
+                        Cost = _selectedAddService.cost;
+                    }
+                    RaisePropertyChanged(nameof(SelectedAddService));
                 }
-                Debug.WriteLine(_selectedAddService);
-                RaisePropertyChanged(nameof(SelectedAddService));
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
 
@@ -79,32 +86,40 @@ namespace HM2.ViewModel
             set
             {
                 _Count = value;
-                Debug.WriteLine(_Count);
                 RaisePropertyChanged("Count");
             }
         }
 
         public AddServiceViewModel(Window window , ReturnEnteringData callBack)
         {
-            AddServices = new ObservableCollection<AddService>();
-            addServicesModel = new AddServiceModel();
-            List<AddService> addServices1 = addServicesModel.GetAddServices();
-            foreach (AddService addService in addServices1)
+            try
             {
-                AddServices.Add(addService);
+                AddServices = new ObservableCollection<AddService>();
+                addServicesModel = new AddServiceModel();
+                List<AddService> addServices1 = addServicesModel.GetAddServices();
+                foreach (AddService addService in addServices1)
+                {
+                    AddServices.Add(addService);
+                }
             }
-            //addServicesModel.GetAddServices((List<AddService> addServices) =>
-            //{
-            //    foreach (AddService addService in addServices)
-            //    {
-            //        AddServices.Add(addService);
-            //    }
-            //});
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             ConfirmCommand = new RelayCommand(_ =>
             {
-                callBack(_selectedAddService, Count);
-                window.Close();
+                try
+                {
+                    callBack(_selectedAddService, Count);
+                    window.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

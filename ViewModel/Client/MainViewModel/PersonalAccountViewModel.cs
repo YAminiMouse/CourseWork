@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HM2.ViewModel
@@ -98,50 +99,74 @@ namespace HM2.ViewModel
         }
         public PersonalAccountViewModel(WindowContext windowContext)
         {
-            UserBookings = new ObservableCollection<UserBookingExtension>();
-            _personalAccount = new PersonalAccountModel();
+            UserExtension currentUser = null;
+            try
+            {
+                UserBookings = new ObservableCollection<UserBookingExtension>();
+                _personalAccount = new PersonalAccountModel();
 
-            var currentUser = (UserExtension)windowContext.GetResourse("CURRENT_USER");
-            if (currentUser.DiscountSize == 1)
-            {
-                _Size = "Нет скидки";
-            }
-            else
-            {
-                _Size = ((double)(currentUser.DiscountSize * 100)).ToString() + "%";
-            }
-            _FIO = currentUser.FIO;
-            _Number = currentUser.Number;
+                currentUser = (UserExtension)windowContext.GetResourse("CURRENT_USER");
+                if (currentUser.DiscountSize == 1)
+                {
+                    _Size = "Нет скидки";
+                }
+                else
+                {
+                    _Size = ((double)(currentUser.DiscountSize * 100)).ToString() + "%";
+                }
+                _FIO = currentUser.FIO;
+                _Number = currentUser.Number;
 
-            var userBookings = _personalAccount.GetUserBookings(currentUser.Id);
-            foreach (var item in userBookings)
-            {
-                UserBookings.Add(item);
-                Debug.WriteLine(item.IdUser);
+                var userBookings = _personalAccount.GetUserBookings(currentUser.Id);
+                foreach (var item in userBookings)
+                {
+                    UserBookings.Add(item);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
             RefuseBooking = new RelayCommand(_ =>
             {
-                if (SelectedBooking != null)
+                try
                 {
-                    _personalAccount.RefuseBooking(_selectedBooking.Id);
-                    UserBookings.Clear();
-                    var userBookings1 = _personalAccount.GetUserBookings(currentUser.Id);
-                    foreach (var item in userBookings1)
+                    if (SelectedBooking != null)
                     {
-                        UserBookings.Add(item);
+                        _personalAccount.RefuseBooking(_selectedBooking.Id);
+                        UserBookings.Clear();
+                        var userBookings1 = _personalAccount.GetUserBookings(currentUser.Id);
+                        foreach (var item in userBookings1)
+                        {
+                            UserBookings.Add(item);
+                        }
                     }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             ShowDetailAddService = new RelayCommand(_ =>
             {
-                if (SelectedBooking != null)
+                try
                 {
-                    windowContext.SetResource("USER_BOOKING_EXTENSION", SelectedBooking);
-                    var detailInformation = new UserAddServiceBookingWindow(windowContext);
-                    detailInformation.Show();
+                    if (SelectedBooking != null)
+                    {
+                        windowContext.SetResource("USER_BOOKING_EXTENSION", SelectedBooking);
+                        var detailInformation = new UserAddServiceBookingWindow(windowContext);
+                        detailInformation.Show();
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
         }
     }

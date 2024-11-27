@@ -44,14 +44,22 @@ namespace HM2.ViewModel
             { 
                 return _startDate;
             } 
-            set 
-            {   _startDate = value;
-                if (_startDate != null)
+            set
+            {
+                try
                 {
-                    //booking.ArrivalDate = _startDate;
-                    roomsModel.SetArrivalDate(_startDate);
+                    _startDate = value;
+                    if (_startDate != null)
+                    {
+                        roomsModel.SetArrivalDate(_startDate);
+                    }
+                    RaisePropertyChanged();
                 }
-                RaisePropertyChanged(); 
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             } 
         }
 
@@ -62,15 +70,22 @@ namespace HM2.ViewModel
             { 
                 return _endDate;
             }
-            set 
-            { 
-                _endDate = value; 
-                if (_endDate != null)
+            set
+            {
+                try
                 {
-                    //booking.DepatureDate = _endDate;
-                    roomsModel.SetDepatureDate(_endDate);
+                    _endDate = value;
+                    if (_endDate != null)
+                    {
+                        roomsModel.SetDepatureDate(_endDate);
+                    }
+                    RaisePropertyChanged();
                 }
-                RaisePropertyChanged(); 
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             } 
         }
         private RoomExtension _selectedRoom;
@@ -83,23 +98,37 @@ namespace HM2.ViewModel
 
             set
             {
-                _selectedRoom = value;
-
-                if (_selectedRoom != null)
+                try
                 {
-                    //booking.IdRoom = _selectedRoom.Id;
-                    roomsModel.SetIdRoom(_selectedRoom.Id);
-                    recalculateTotalSum();
+                    _selectedRoom = value;
+                    if (_selectedRoom != null)
+                    {
+                        roomsModel.SetIdRoom(_selectedRoom.Id);
+                        recalculateTotalSum();
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
 
         private void recalculateTotalSum()
         {
-            var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
-            double totalAmount = roomsModel.recalculateTotalSum(StartDate , EndDate , _selectedRoom ,EnterAddServices , currentUser.DiscountSize);
-            roomsModel.SetFinalCost(totalAmount);
-            TotalAmountSum = totalAmount.ToString();
+            try
+            {
+                var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
+                double totalAmount = roomsModel.recalculateTotalSum(StartDate, EndDate, _selectedRoom, EnterAddServices, currentUser.DiscountSize);
+                roomsModel.SetFinalCost(totalAmount);
+                TotalAmountSum = totalAmount.ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private ObservableCollection<RoomExtension> rooms;
@@ -128,7 +157,6 @@ namespace HM2.ViewModel
             {
                 _selectedType = value;
                 RaisePropertyChanged("SelectedType");
-                Debug.WriteLine(_selectedType.name);
             }
         }
 
@@ -142,7 +170,6 @@ namespace HM2.ViewModel
             set
             {
                 _selectedAddService = value;
-                Debug.WriteLine(_selectedAddService);
             }
         }
 
@@ -161,62 +188,102 @@ namespace HM2.ViewModel
 
         public BookingViewModel(WindowContext windowContext , OnWindowClose onWindowClose) 
         {
-            _windowContext = windowContext;
-            _startDate = DateTime.Now;
-            _endDate = DateTime.Now;
-
-            types = new ObservableCollection<TypeRoomExtension>();
-            serviceExtensions = new ObservableCollection<StringServiceExtension>();
-            rooms = new ObservableCollection<RoomExtension>();
-            roomsModel = new BookingRoomsModel();
-
-            List <TypeRoomExtension> typesRoom = roomsModel.GetTypes();
-            foreach (TypeRoomExtension roomType in typesRoom)
+            try
             {
-                TypesRoom.Add(roomType);
+                _windowContext = windowContext;
+                _startDate = DateTime.Now;
+                _endDate = DateTime.Now;
+
+                types = new ObservableCollection<TypeRoomExtension>();
+                serviceExtensions = new ObservableCollection<StringServiceExtension>();
+                rooms = new ObservableCollection<RoomExtension>();
+                roomsModel = new BookingRoomsModel();
+
+                List<TypeRoomExtension> typesRoom = roomsModel.GetTypes();
+                foreach (TypeRoomExtension roomType in typesRoom)
+                {
+                    TypesRoom.Add(roomType);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
 
             CommandDeleteSelectedService = new RelayCommand ( _ =>
             {
-                if (SelectedAddService != null)
+                try
                 {
-                    serviceExtensions.Remove(SelectedAddService);
-                    recalculateTotalSum();
+                    if (SelectedAddService != null)
+                    {
+                        serviceExtensions.Remove(SelectedAddService);
+                        recalculateTotalSum();
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             CommandFindRooms = new RelayCommand(_ =>
             {
-                Rooms.Clear();
-                List<RoomExtension> findRooms = roomsModel.GetRooms(_selectedType, StartDate, EndDate);
-                foreach (RoomExtension findRoom in findRooms)
+                try
                 {
-                    Rooms.Add(findRoom);
+                    Rooms.Clear();
+                    List<RoomExtension> findRooms = roomsModel.GetRooms(_selectedType, StartDate, EndDate);
+                    foreach (RoomExtension findRoom in findRooms)
+                    {
+                        Rooms.Add(findRoom);
+                    }
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             CommandSwowListServices = new RelayCommand(_ =>
             {
-                ShowAddServiceWindow window = new ShowAddServiceWindow(windowContext , (AddService service, int count) =>
+                try
                 {
-                    EnterAddServices.Add(roomsModel.GetAddService(service, count));
-                    recalculateTotalSum();
-                });
-                window.Show();
+                    ShowAddServiceWindow window = new ShowAddServiceWindow(windowContext, (AddService service, int count) =>
+                    {
+                        EnterAddServices.Add(roomsModel.GetAddService(service, count));
+                        recalculateTotalSum();
+                    });
+                    window.Show();
+                }
+                catch( Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             });
 
             CommandConfirmBooking = new RelayCommand(_ =>
             {
-                if (_selectedRoom != null && _selectedType != null && _startDate < _endDate) 
+                try
                 {
-                    var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
-                    roomsModel.CreateBooking(serviceExtensions , 1 , currentUser.Id , _startDate , _endDate , _selectedRoom.Id , double.Parse(TotalAmountSum));
-                    onWindowClose();
+                    if (_selectedRoom != null && _selectedType != null && _startDate < _endDate)
+                    {
+                        var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
+                        roomsModel.CreateBooking(serviceExtensions, 1, currentUser.Id, _startDate, _endDate, _selectedRoom.Id, double.Parse(TotalAmountSum));
+                        onWindowClose();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Проверьте корректность введенных данных");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Проверьте корректность введенных данных");
+                    MessageBox.Show(ex.Message);
                 }
+                
             });
         }
     }

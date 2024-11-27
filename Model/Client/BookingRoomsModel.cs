@@ -60,7 +60,7 @@ namespace HM2.Model
             StringServiceExtension stringServiceExtension;
             using (HotelModel hm = new HotelModel())
             {
-               
+
                 var stringService = new StringService();
                 stringService.AddService = service;
                 stringService.cost = service.cost;

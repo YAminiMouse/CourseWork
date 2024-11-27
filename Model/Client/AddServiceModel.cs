@@ -11,7 +11,7 @@ namespace HM2.Model
 {
     public class AddServiceModel
     {
-        public List<AddService> GetAddServices(/*ReturnAddServices callBack*/)
+        public List<AddService> GetAddServices()
         {
             List<AddService> list = new List<AddService>();
             using (HotelModel hm = new HotelModel())

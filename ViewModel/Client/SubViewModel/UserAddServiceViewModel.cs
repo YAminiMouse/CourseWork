@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HM2.ViewModel
 {
@@ -38,15 +39,20 @@ namespace HM2.ViewModel
         // Просмотр выбранных услуг клиентом в личном кабинете
         public UserAddServiceViewModel(WindowContext windowContext)
         {
-            UserStringServices = new ObservableCollection<StringServiceExtension>();
-            userAddServiceModel = new UserAddServiceModel();
-
-            var userBookingExtension = (UserBookingExtension)windowContext.GetResourse("USER_BOOKING_EXTENSION");
-
-            List<StringServiceExtension> listStrServices = userAddServiceModel.GetStrServices(userBookingExtension.Id);
-            foreach (StringServiceExtension strService in listStrServices)
+            try
             {
-                UserStringServices.Add(strService);
+                UserStringServices = new ObservableCollection<StringServiceExtension>();
+                userAddServiceModel = new UserAddServiceModel();
+                var userBookingExtension = (UserBookingExtension)windowContext.GetResourse("USER_BOOKING_EXTENSION");
+                List<StringServiceExtension> listStrServices = userAddServiceModel.GetStrServices(userBookingExtension.Id);
+                foreach (StringServiceExtension strService in listStrServices)
+                {
+                    UserStringServices.Add(strService);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
