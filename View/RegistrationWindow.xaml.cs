@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DAL.AdditionalEntities;
+using HM2.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,17 @@ namespace HM2.View
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        public RegistrationWindow(WindowContext windowContext)
         {
             InitializeComponent();
+            windowContext.SetCurrentWindow(this);
+            DataContext = new RegistrationViewModel(windowContext);
+        }
+
+        public void OnWindowClosed(object sender, CancelEventArgs e)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
         }
     }
 }

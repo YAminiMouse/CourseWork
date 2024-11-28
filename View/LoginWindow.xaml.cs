@@ -24,7 +24,7 @@ namespace HM2.View
         public LoginWindow()
         {
             InitializeComponent();
-            WindowContext windowContext= new WindowContext();
+            WindowContext windowContext = new WindowContext();
             var windowBuilder = new WindowsBuilder();
             windowBuilder.WindowContext = windowContext;
             windowContext.SetCurrentWindow(this);

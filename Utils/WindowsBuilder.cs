@@ -29,6 +29,14 @@ namespace DAL.AdditionalEntities
         {
             switch(windowId)
             {
+                case "LOGIN_WINDOW":
+                {
+                    return new LoginWindow();
+                }
+                case "REGISTRATION_WINDOW":
+                {
+                    return new RegistrationWindow(_windowContext);
+                }
                 case "MAIN_WINDOW":
                 {
                     return new MainWindow(_windowContext);

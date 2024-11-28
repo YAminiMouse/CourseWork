@@ -153,6 +153,7 @@
     <Compile Include="Model\LoginUserModel.cs" />
     <Compile Include="Model\Client\PersonalAccountModel.cs" />
     <Compile Include="Model\Client\UserAddServiceModel.cs" />
+    <Compile Include="Model\RegistrationModel.cs" />
     <Compile Include="Utils\WindowContext.cs" />
     <Compile Include="Utils\WindowsBuilder.cs" />
     <Compile Include="ViewModel\Admin\SubViewModel\AddNewAddServiceViewModel.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="ViewModel\Client\MainViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Client\MainViewModel\PersonalAccountViewModel.cs" />
     <Compile Include="ViewModel\Client\SubViewModel\UserAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\RegistrationViewModel.cs" />
     <Compile Include="View\Admin\SubWindow\AddNewServiceWindow.xaml.cs">
       <DependentUpon>AddNewServiceWindow.xaml</DependentUpon>
     </Compile>

@@ -57,6 +57,7 @@ namespace HM2.ViewModel
         }
 
         public ICommand NavigateToMainWindow { get; } 
+        public ICommand RegistrationWindow { get; }
         public LoginViewModel(WindowContext windowContext)
         {
             _userModel = new LoginUserModel();
@@ -82,6 +83,16 @@ namespace HM2.ViewModel
                 }
                 
             });
+
+            RegistrationWindow = new RelayCommand(_ =>
+            {
+                var currentWindow = windowContext.GetCurrentWindow();
+                var windowBuilder = (WindowsBuilder)windowContext.GetResourse("WINDOW_BUILDER");
+                Window reqistrationWindow = (Window)windowBuilder.Build("REGISTRATION_WINDOW");
+                reqistrationWindow.Show();
+                currentWindow.Close();
+            });
+
         }
     }
 }

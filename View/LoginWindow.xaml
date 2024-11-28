@@ -50,7 +50,7 @@
 
 
                         <!-- Регистрация -->
-                        <Button Content="Зарегистрироваться" Height="40" Width="160" Margin="0,10,0,0" Cursor="Hand"
+                        <Button Content="Зарегистрироваться" Command="{Binding RegistrationWindow}" Height="40" Width="160" Margin="0,10,0,0" Cursor="Hand"
                         HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
                         </Button>
 
