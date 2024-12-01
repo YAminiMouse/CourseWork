@@ -84,18 +84,45 @@ namespace HM2.ViewModel
             registrationModel = new RegistrationModel();
             AddNewUser = new RelayCommand(_ =>
             {
-                bool IsLogin = registrationModel.CreateNewUser(LoginRegistrationUser , PasswordRegistrationUser , FIORegistrationUser , NumberRegistrationUser);
-                if (!IsLogin)
+                int IsLogin = registrationModel.CreateNewUser(LoginRegistrationUser , PasswordRegistrationUser , FIORegistrationUser , NumberRegistrationUser);
+
+                switch (IsLogin)
                 {
-                    MessageBox.Show("Пользователь с таким логином уже существует.");
-                }
-                else
-                {
-                    MessageBox.Show("Регистрация прошла успешно");
-                    LoginRegistrationUser = "";
-                    PasswordRegistrationUser = "";
-                    FIORegistrationUser = "";
-                    NumberRegistrationUser = "";
+                    case 0:
+                    {
+                            MessageBox.Show("Пользователь с таким логином уже существует.");
+                            break;
+                    }
+                    case 1:
+                        {
+                            MessageBox.Show("Длина логина менее 8 символов");
+                            break;
+                        }
+                    case 2:
+                        {
+                            MessageBox.Show("Пароль менее 8 символов");
+                            break;
+                        }
+                    case 3:
+                        {
+                            MessageBox.Show("Введено некорректное ФИО");
+                            break;
+                        }
+                    case 4:
+                        {
+                            MessageBox.Show("Введен некорректный номер телефона");
+                            break;
+                        }
+                   
+                    case 5:
+                        {
+                            MessageBox.Show("Регистрация прошла успешно");
+                            LoginRegistrationUser = "";
+                            PasswordRegistrationUser = "";
+                            FIORegistrationUser = "";
+                            NumberRegistrationUser = "";
+                            break;
+                        }
                 }
                 
             });
