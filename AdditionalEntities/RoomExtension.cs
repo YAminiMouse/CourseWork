@@ -16,14 +16,20 @@ namespace DAL.AdditionalEntities
         public int floor { get; set; }
 
         public int IdTypeRoom { get; set; }
+        public string NameTypeRoom { get; set; }
         public int cost { get; set; }
+        public DateTime IsCreated { get; set; }
+        public DateTime? IsDeleted { get; set; }
         public RoomExtension(Room room , TypeRoomExtension type) 
         { 
             Id = room.Id;
             number = room.number;
             floor = room.floor;
             IdTypeRoom = room.IdTypeRoom;
+            NameTypeRoom = type.name;
             cost = type.cost;
+            IsCreated = (DateTime)room.CreateDate;
+            IsDeleted = room.DeleteDate;
         }
     }
 }

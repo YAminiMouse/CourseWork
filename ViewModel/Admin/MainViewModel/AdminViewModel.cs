@@ -306,6 +306,31 @@ namespace HM2.ViewModel.Admin
                 RaisePropertyChanged("WaitRoomsBooking");
             }
         }
+        private ObservableCollection<RoomExtension> _allRooms;
+        public ObservableCollection<RoomExtension> AllRooms
+        {
+            get
+            {
+                return _allRooms;
+            }
+            set
+            {
+                _allRooms = value;
+                RaisePropertyChanged("AllRooms");
+            }
+        }
+        private RoomExtension _selectedRoom;
+        public RoomExtension SelectedRoom
+        {
+            get
+            {
+                return _selectedRoom;
+            }
+            set
+            {
+                _selectedRoom = value;
+            }
+        }
 
         public ICommand FindClient { get; set; }
         public ICommand ChangeClientInformation { get; set; }
@@ -321,6 +346,9 @@ namespace HM2.ViewModel.Admin
         public ICommand EvictClient { get; set; }
         public ICommand CreateReport { get; set; }
         public ICommand ExportReport { get; set; }
+        public ICommand DeleteRoom { get; set; }
+        public ICommand EditRoom { get; set; }
+        public ICommand AddNewRoom { get; set; }
         public AdminViewModel() 
         {
             StartDate = DateTime.Now;
@@ -332,6 +360,7 @@ namespace HM2.ViewModel.Admin
             AllStatusBooking = new ObservableCollection<Status>();
             BusyRoomsBooking = new ObservableCollection<UserBookingExtension>();
             WaitRoomsBooking = new ObservableCollection<UserBookingExtension>();
+            AllRooms = new ObservableCollection<RoomExtension>();
         }
     }
 }

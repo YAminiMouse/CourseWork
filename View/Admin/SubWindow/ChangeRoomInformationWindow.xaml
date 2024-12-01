@@ -1,0 +1,49 @@
+﻿<Window x:Class="HM2.View.Admin.SubWindow.ChangeRoomInformationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HM2.View.Admin.SubWindow"
+        mc:Ignorable="d"
+        Title="Изменить информацию о комнате" Height="350" Width="200"
+        MinHeight="350" MinWidth="250"
+        Closing="OnWindowClosed"
+       >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.75*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0">
+
+            <TextBlock Text="Этаж" Margin="0,0,0,5" FontSize="14"/>
+            <TextBox x:Name="FloorTextBox" 
+                      HorizontalAlignment="Stretch" 
+                      Margin="0,0,0,10"
+                     Text="{Binding SelectedFloor , UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Номер комнаты" Margin="0,0,0,5" FontSize="14"/>
+            <TextBox x:Name="NumberTextBox" 
+                      HorizontalAlignment="Stretch" 
+                      Margin="0,0,0,10"
+                      Text="{Binding SelectedNumber , UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Тип комнаты" Margin="0,0,0,5" FontSize="14"/>
+            <ComboBox x:Name="TypeRoomCombobox" 
+                      HorizontalAlignment="Stretch" 
+                      Margin="0,0,0,10"
+                      DisplayMemberPath="name"
+                      ItemsSource="{Binding AllTypes}" 
+                      SelectedItem="{Binding SelectedType}"/>
+
+        </StackPanel>
+
+        <Button Content="Изменить" Width="100" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Grid.Row="1" 
+                Margin="0,20,0,0"
+                Command="{Binding EditRoom}"/>
+    </Grid>
+</Window>

@@ -110,14 +110,14 @@
                             <Button Content="Добавить" 
                                     Width="100" 
                                     Margin="0,0,10,0"
-                                    />
+                                    Command="{Binding AddNewRoom}"/>
                             <Button Content="Изменить" 
                                     Width="100" 
                                     Margin="0,0,10,0"
-                                    />
+                                    Command="{Binding EditRoom}"/>
                             <Button Content="Удалить" 
                                     Width="100"
-                                    />
+                                    Command="{Binding DeleteRoom}"/>
                         </StackPanel>
 
                         <DataGrid AutoGenerateColumns="False" 
@@ -125,13 +125,15 @@
                                   HorizontalAlignment="Stretch" 
                                   VerticalAlignment="Stretch" 
                                   GridLinesVisibility="All"
+                                  ItemsSource="{Binding AllRooms}"
+                                  SelectedItem="{Binding SelectedRoom}"
                                   IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Номер комнаты" />
-                                <DataGridTextColumn Header="Тип комнаты"/>
-                                <DataGridTextColumn Header="Этаж"/>
-                                <DataGridTextColumn Header="Дата создания" />
-                                <DataGridTextColumn Header="Дата удаления" />
+                                <DataGridTextColumn Header="Номер комнаты" Binding="{Binding number}"/>
+                                <DataGridTextColumn Header="Тип комнаты" Binding="{Binding NameTypeRoom}"/>
+                                <DataGridTextColumn Header="Этаж" Binding="{Binding floor}"/>
+                                <DataGridTextColumn Header="Дата создания" Binding="{Binding IsCreated}"/>
+                                <DataGridTextColumn Header="Дата удаления" Binding="{Binding IsDeleted}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

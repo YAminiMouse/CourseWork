@@ -141,8 +141,11 @@
     <Compile Include="Model\Admin\MainModel\AdminAddServiceModel.cs" />
     <Compile Include="Model\Admin\MainModel\AdminBookingModel.cs" />
     <Compile Include="Model\Admin\MainModel\AdminReportsModel.cs" />
+    <Compile Include="Model\Admin\MainModel\AdminRoomsModel.cs" />
     <Compile Include="Model\Admin\SubModel\AddNewServiceModel.cs" />
+    <Compile Include="Model\Admin\SubModel\AddRoomModel.cs" />
     <Compile Include="Model\Admin\SubModel\AddTypeRoomModel.cs" />
+    <Compile Include="Model\Admin\SubModel\ChangeRoomInformationModel.cs" />
     <Compile Include="Model\Admin\SubModel\ChangeServiceInformationModel.cs" />
     <Compile Include="Model\Admin\SubModel\ChangeTypeRoomInformationModel.cs" />
     <Compile Include="Model\Client\AddServiceModel.cs" />
@@ -156,7 +159,10 @@
     <Compile Include="Model\RegistrationModel.cs" />
     <Compile Include="Utils\WindowContext.cs" />
     <Compile Include="Utils\WindowsBuilder.cs" />
+    <Compile Include="ViewModel\Admin\MainViewModel\AdminRoomsViewModel.cs" />
     <Compile Include="ViewModel\Admin\SubViewModel\AddNewAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\Admin\SubViewModel\AddRoomInformationViewModel.cs" />
+    <Compile Include="ViewModel\Admin\SubViewModel\ChangeRoomInformationViewModel.cs" />
     <Compile Include="ViewModel\Admin\SubViewModel\ChangeServiceInformationViewModel.cs" />
     <Compile Include="ViewModel\Client\SubViewModel\AddServiceViewModel.cs" />
     <Compile Include="ViewModel\Admin\SubViewModel\AddTypeRoomViewModel.cs" />
@@ -175,6 +181,9 @@
     <Compile Include="ViewModel\Client\MainViewModel\PersonalAccountViewModel.cs" />
     <Compile Include="ViewModel\Client\SubViewModel\UserAddServiceViewModel.cs" />
     <Compile Include="ViewModel\RegistrationViewModel.cs" />
+    <Compile Include="View\Admin\SubWindow\AddNewRoom.xaml.cs">
+      <DependentUpon>AddNewRoom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Admin\SubWindow\AddNewServiceWindow.xaml.cs">
       <DependentUpon>AddNewServiceWindow.xaml</DependentUpon>
     </Compile>
@@ -186,6 +195,9 @@
     </Compile>
     <Compile Include="View\Admin\SubWindow\ChangeClientInformationWindow.xaml.cs">
       <DependentUpon>ChangeClientInformationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Admin\SubWindow\ChangeRoomInformationWindow.xaml.cs">
+      <DependentUpon>ChangeRoomInformationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Admin\SubWindow\ChangeServiceInformationWindow.xaml.cs">
       <DependentUpon>ChangeServiceInformationWindow.xaml</DependentUpon>
@@ -211,6 +223,10 @@
     <Compile Include="View\Client\SubView\UserAddServiceBookingWindow.xaml.cs">
       <DependentUpon>UserAddServiceBookingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Admin\SubWindow\AddNewRoom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Admin\SubWindow\AddNewServiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Admin\SubWindow\ChangeClientInformationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Admin\SubWindow\ChangeRoomInformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

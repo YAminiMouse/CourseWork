@@ -1,5 +1,6 @@
 ﻿using DAL.AdditionalEntities;
 using HM2.ViewModel.Admin;
+using HM2.ViewModel.Admin.MainViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,11 +56,11 @@ namespace HM2.View.Admin
                     DataContext = new AdminTypeRoomViewModel(windowContext);
                     break;
                 }
-                //case 2:
-                //{
-                //    DataContext = new AdminBookingViewModel(windowContext);
-                //    break;
-                //}
+                case 2:
+                {
+                    DataContext = new AdminRoomsViewModel(windowContext);
+                    break;
+                }
                 case 3:
                 {
                     DataContext = new AdminBookingViewModel(windowContext);
