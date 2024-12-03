@@ -106,7 +106,6 @@ namespace HM2.Model.Admin.MainModel
         {
             using (HotelModel hm = new HotelModel())
             {
-                throw new Exception("блаблаблаблабла");
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
                 booking.IdStatus = 4;
                 hm.SaveChanges();

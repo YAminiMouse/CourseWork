@@ -73,6 +73,9 @@ namespace HM2.Model
 
         public double recalculateTotalSum(DateTime startDate , DateTime endDate , RoomExtension selectedRoom , ObservableCollection<StringServiceExtension> enterAddServices , double? discountSize)
         {
+            if (startDate > endDate) {
+                throw new Exception("Неверная дата");
+            }
             int selectedRoomCost = 0;
             if (selectedRoom != null)
             {
@@ -95,7 +98,7 @@ namespace HM2.Model
             {
                 totalAmount = (selectedRoomCost * nights.Days + addServicesSum);
             }
-            return totalAmount;
+            return Math.Round(totalAmount , 2);
         }
 
         public void CreateBooking(ObservableCollection<StringServiceExtension> stringServiceExtensions , int IdStatus , int IdUser , DateTime startDate , DateTime endDate, int IdSelectedRoom , double totalSum)
