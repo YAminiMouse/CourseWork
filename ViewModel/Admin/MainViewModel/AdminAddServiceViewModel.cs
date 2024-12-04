@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace HM2.ViewModel.Admin
 {
@@ -32,7 +33,7 @@ namespace HM2.ViewModel.Admin
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Windows.MessageBox.Show(ex.Message);
             }
 
         }
@@ -50,7 +51,7 @@ namespace HM2.ViewModel.Admin
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Windows.MessageBox.Show(ex.Message);
             }
             
 
@@ -71,6 +72,10 @@ namespace HM2.ViewModel.Admin
                     ChangeServiceInformationWindow addTypeRoomWindow = new ChangeServiceInformationWindow(windowContext, UpdateAddServices);
                     addTypeRoomWindow.Show();
                 }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите услугу из таблицы для редактирования!");
+                }
             });
 
             DeleteAddService = new RelayCommand(_ =>
@@ -82,10 +87,14 @@ namespace HM2.ViewModel.Admin
                         _adminAddServiceModel.DeleteSelectedService(SelectedAddservice.Id);
                         UpdateAddServices();
                     }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Выберите услугу из таблицы для удаления!");
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    System.Windows.MessageBox.Show(ex.Message);
                 }
                 
             });

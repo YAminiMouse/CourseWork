@@ -72,7 +72,8 @@
                               AutoGenerateColumns="False"
                               Margin="0,10,0,10"
                               ItemsSource="{Binding UserBookings}"
-                              SelectedItem="{Binding SelectedBooking}">
+                              SelectedItem="{Binding SelectedBooking}"
+                              IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата приезда" Width="*" Binding="{Binding ArrivalDate}"/>
                             <DataGridTextColumn Header="Дата отъезда" Width="*" Binding="{Binding DepatureDate}"/>

@@ -70,6 +70,10 @@ namespace HM2.ViewModel.Admin
                     ChangeTypeRoomInformationWindow changeTypeRoomInformationWindow = new ChangeTypeRoomInformationWindow(windowContext, UpdateTypesRoom);
                     changeTypeRoomInformationWindow.Show();
                 }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите тип комнаты из таблицы для редактирования!");
+                }
             });
 
             DeleteTypeRoom = new RelayCommand(_ =>
@@ -85,6 +89,10 @@ namespace HM2.ViewModel.Admin
                     {
                         MessageBox.Show(ex.Message);
                     }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите тип комнаты из таблицы для удаления!");
                 }
             });
         }

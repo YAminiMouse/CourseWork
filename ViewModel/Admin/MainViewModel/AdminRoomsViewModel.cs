@@ -47,6 +47,10 @@ namespace HM2.ViewModel.Admin.MainViewModel
                     ChangeRoomInformationWindow changeRoomInformationWindow = new ChangeRoomInformationWindow(windowContext, UpdateListRooms);
                     changeRoomInformationWindow.Show();
                 }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите комнату из таблицы для редактирования!");
+                }
             });
 
             DeleteRoom = new RelayCommand(_ => {
@@ -61,6 +65,10 @@ namespace HM2.ViewModel.Admin.MainViewModel
                     {
                         MessageBox.Show(ex.Message);
                     }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите комнату из таблицы для удаления!");
                 }
             });
         }

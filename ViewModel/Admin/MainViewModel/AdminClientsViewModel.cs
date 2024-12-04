@@ -80,6 +80,10 @@ namespace HM2.ViewModel.Admin
                     Window EditClientInformation = new ChangeClientInformationWindow(windowContext, GetUpdatedList);
                     EditClientInformation.Show();
                 }
+                else
+                {
+                    System.Windows.MessageBox.Show("Выберите клиента из таблицы для редактирования!");
+                }
             });
         }
     }
