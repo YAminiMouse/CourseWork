@@ -21,7 +21,7 @@ namespace HM2.Model.Admin.SubModel
                 typeRoom.cost = costType;
                 typeRoom.IdComfort = selectedComfortId;
                 typeRoom.IdSize = selectedCapacityId;
-                typeRoom.name = selectedCapacityName + " " + selectedComfortName;
+                //typeRoom.name = selectedCapacityName + " " + selectedComfortName;
                 typeRoom.description = description;
                 hm.TypeRoom.Add(typeRoom);
                 hm.SaveChanges();

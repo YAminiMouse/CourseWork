@@ -30,7 +30,7 @@ namespace DAL.AdditionalEntities
             IdUser = booking.IdUser;
             IdRoom = booking.IdRoom;
             RoomNumber = booking.Room.number;
-            TypeRoom = booking.Room.TypeRoom.name;
+            TypeRoom = booking.Room.TypeRoom.Capacity.name + booking.Room.TypeRoom.Comfort.name;
             UserName = booking.User.FIO;
         }
     }

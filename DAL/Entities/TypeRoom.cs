@@ -25,8 +25,6 @@ namespace DAL.Entities
 
         public string description { get; set; }
 
-        public string name { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime? deleteDate { get; set; }
 

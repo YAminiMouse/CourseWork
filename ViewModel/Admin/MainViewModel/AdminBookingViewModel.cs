@@ -86,12 +86,7 @@ namespace HM2.ViewModel.Admin
                     if (SelectedBooking != null)
                     {
                         _adminBookingModel.RefuseBooking(SelectedBooking.Id);
-                        BookingList.Clear();
-                        var bookings = _adminBookingModel.FindClientBookings(SelectedPhoneClientBooking, SelectedStatusBooking.Id);
-                        foreach (var item in bookings)
-                        {
-                            BookingList.Add(item);
-                        }
+                        UpdateBookingList();
                     }
                 }
                 catch(Exception ex)

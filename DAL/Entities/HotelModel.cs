@@ -103,10 +103,6 @@ namespace DAL.Entities
                 .IsUnicode(false);
 
             modelBuilder.Entity<TypeRoom>()
-                .Property(e => e.name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TypeRoom>()
                 .HasMany(e => e.Room)
                 .WithRequired(e => e.TypeRoom)
                 .HasForeignKey(e => e.IdTypeRoom)

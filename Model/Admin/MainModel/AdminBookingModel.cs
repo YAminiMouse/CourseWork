@@ -2,6 +2,7 @@
 using DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,11 +59,15 @@ namespace HM2.Model.Admin.MainModel
 
         public void RefuseBooking(int selectedBookingId)
         {
-            //var booking = new Booking();
             using(HotelModel hm = new HotelModel())
             {
-
+                var statusList = new List<int> { 1 }; // из которых можно попасть в это состояние
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
+                if (statusList.IndexOf(booking.IdStatus) < 0)
+                {
+                    Debug.WriteLine("Unexpected booking status");
+                    return;
+                }
                 booking.IdStatus = 3;
                 hm.SaveChanges();
             }
@@ -72,8 +77,14 @@ namespace HM2.Model.Admin.MainModel
         {
             using(HotelModel hm = new HotelModel())
             {
+                var statusList = new List<int> { 1 };
 
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
+                if (statusList.IndexOf(booking.IdStatus) < 0)
+                {
+                    Debug.WriteLine("Unexpected booking status");
+                    return;
+                }
                 booking.IdStatus = 2;
                 var user = booking.User;
                 if (user.moneySpent == null)
@@ -104,9 +115,17 @@ namespace HM2.Model.Admin.MainModel
 
         public void EvictClient(int selectedBookingId)
         {
+
             using (HotelModel hm = new HotelModel())
             {
+                var statusList = new List<int> { 2 };
+                
                 var booking = (from b in hm.Booking where b.Id == selectedBookingId select b).ToList().First();
+                if (statusList.IndexOf(booking.IdStatus) < 0)
+                {
+                    Debug.WriteLine("Unexpected booking status");
+                    return;
+                }
                 booking.IdStatus = 4;
                 hm.SaveChanges();
             }
