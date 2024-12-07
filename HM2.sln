@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HM2", "HM2.csproj", "{ED52A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{DF2972FB-9A44-4BA1-A4D1-E02C62001078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingRoomsModelTests", "Tests\BookingRoomsModelTests.csproj", "{641F23D2-D6A7-48C0-B46C-1C479BE17C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingRoomsModelTests", "Tests\BookingRoomsModelTests.csproj", "{641F23D2-D6A7-48C0-B46C-1C479BE17C2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
