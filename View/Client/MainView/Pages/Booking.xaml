@@ -70,7 +70,6 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Картинка комнаты -->
                                 <Viewbox Grid.Column="0">
                                     <Image Source="https://main-cdn.sbermegamarket.ru/big2/hlr-system/1725207415/100020758388b9.jpg" 
                                            Stretch="Uniform" 
@@ -78,8 +77,7 @@
                                            Height="400"/>
                                 </Viewbox>
 
-                                <!-- Информация о комнате -->
-                                <StackPanel Grid.Column="1" Margin="5, 0, 0, 0" VerticalAlignment="Center">
+                                <StackPanel Grid.Column="1" Margin="5, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <TextBlock Text="Номер комнаты:" FontSize="16" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding number}" FontSize="16" Margin="0, 0, 0, 5"/>
 
