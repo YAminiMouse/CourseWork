@@ -13,7 +13,7 @@ namespace HM2.Model.Admin.SubModel
     {
         public ChangeTypeRoomInformationModel() { }
 
-        public void ChangeInformation(int selectedTypeId , string selectedCost , string selectedDescription , int selectedCapacityId , int selectedComfortId)
+        public void ChangeInformation(int selectedTypeId , string selectedCost , string selectedDescription , int selectedCapacityId , int selectedComfortId , byte[] data)
         {
             using (HotelModel hm = new HotelModel())
             {
@@ -22,6 +22,7 @@ namespace HM2.Model.Admin.SubModel
                 st.description = selectedDescription;
                 st.IdSize = selectedCapacityId;
                 st.IdComfort = selectedComfortId;
+                st.photo = data;
                 hm.SaveChanges();
             }
             return;

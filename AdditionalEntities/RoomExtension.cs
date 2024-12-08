@@ -1,9 +1,12 @@
 ﻿using DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
+using System.Windows.Media.Imaging;
 
 namespace DAL.AdditionalEntities
 {
@@ -20,6 +23,7 @@ namespace DAL.AdditionalEntities
         public int cost { get; set; }
         public DateTime IsCreated { get; set; }
         public DateTime? IsDeleted { get; set; }
+        public BitmapImage ImagePath { get; set; }
         public RoomExtension(Room room , TypeRoomExtension type) 
         { 
             Id = room.Id;
@@ -30,6 +34,10 @@ namespace DAL.AdditionalEntities
             cost = type.cost;
             IsCreated = (DateTime)room.CreateDate;
             IsDeleted = room.DeleteDate;
+            ImagePath = new BitmapImage();
+            ImagePath.BeginInit();
+            ImagePath.StreamSource = new MemoryStream(type.data);
+            ImagePath.EndInit();
         }
     }
 }

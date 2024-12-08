@@ -3,15 +3,19 @@ using DAL.Entities;
 using HM2.Command;
 using HM2.Model;
 using HM2.View;
+using PdfSharp.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace HM2.ViewModel
 {
@@ -173,6 +177,20 @@ namespace HM2.ViewModel
             }
         }
 
+        private BitmapImage _imagePath;
+        public BitmapImage ImagePath
+        {
+            get
+            {
+                return _imagePath;
+            }
+            set
+            {
+                _imagePath = value;
+                RaisePropertyChanged("ImagePath");
+            }
+        }
+
         public ICommand CommandDeleteSelectedService { get; }
         public ICommand CommandConfirmBooking { get; }
         public ICommand CommandFindRooms { get; }
@@ -188,6 +206,13 @@ namespace HM2.ViewModel
 
         public BookingViewModel(WindowContext windowContext , OnWindowClose onWindowClose) 
         {
+            //ImagePath = new BitmapImage();
+            //string path = "C:\\Users\\samoy\\Desktop\\Учеба\\3 курс\\Конструирование ПО\\Курсовая\\Test\\CourseWork\\Photos\\photo1.jpg";
+            //byte[] data = File.ReadAllBytes(path);
+            //ImagePath.BeginInit();
+            //ImagePath.StreamSource = new MemoryStream(data);
+            //ImagePath.EndInit();
+
             try
             {
                 _windowContext = windowContext;
@@ -236,6 +261,7 @@ namespace HM2.ViewModel
                     List<RoomExtension> findRooms = roomsModel.GetRooms(_selectedType, StartDate, EndDate);
                     foreach (RoomExtension findRoom in findRooms)
                     {
+                        //findRoom.ImagePath = ImagePath;
                         Rooms.Add(findRoom);
                     }
                 }

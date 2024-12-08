@@ -28,6 +28,8 @@ namespace DAL.Entities
         [Column(TypeName = "date")]
         public DateTime? deleteDate { get; set; }
 
+        public byte[] photo { get; set; }
+
         public virtual Capacity Capacity { get; set; }
 
         public virtual Comfort Comfort { get; set; }

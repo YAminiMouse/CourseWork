@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:HM2.View.Admin"
         mc:Ignorable="d"
         Title="Добавление нового типа комнаты" 
-        Height="400" Width="300"
-        MinHeight="300" MinWidth="250"
+        Height="450" Width="300"
+        MinHeight="450" MinWidth="250"
         SizeToContent="Manual"
         Closing="OnWindowClosed">
 
@@ -40,8 +40,19 @@
                      HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10"
                      Text="{Binding Cost , UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Картинка" Margin="0,0,0,5" FontSize="14"/>
+            <TextBox x:Name="PictureTextBox" 
+                     HorizontalAlignment="Stretch" 
+                     Margin="0,0,0,10"
+                     Text="{Binding Picture , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Text="Описание" Margin="0,0,0,5" FontSize="14"/>
+            <Button Content="Загрузить" Width="100" 
+                    HorizontalAlignment="Left" 
+                    Grid.Row="1" 
+                    Margin="0,10,0,10"
+                    Command="{Binding LoadPicture}"/>
+
+            <TextBlock Text="Описание" Margin="0,0,0,10" FontSize="14"/>
             <TextBox x:Name="DescriptionTextBox" 
                      HorizontalAlignment="Stretch" 
                      Height="80" 

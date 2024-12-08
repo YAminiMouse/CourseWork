@@ -71,7 +71,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Viewbox Grid.Column="0">
-                                    <Image Source="https://main-cdn.sbermegamarket.ru/big2/hlr-system/1725207415/100020758388b9.jpg" 
+                                    <Image Source="{Binding ImagePath}" 
                                            Stretch="Uniform" 
                                            Width="400" 
                                            Height="400"/>

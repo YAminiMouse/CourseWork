@@ -1,6 +1,7 @@
 ﻿using DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace DAL.AdditionalEntities
         public int IdComfort { get; set; }
         public int IdCapacity { get; set; }
         public string capacity { get; set; }
+        public byte[] data { get; set; }
 
         public TypeRoomExtension(TypeRoom type, Capacity capacity , Comfort comfort)
         { 
@@ -31,6 +33,15 @@ namespace DAL.AdditionalEntities
             IdCapacity = capacity.Id;
             IdComfort = comfort.Id;
             this.capacity = capacity.name;
+            if (type.photo == null)
+            {
+                data = new byte[0];
+            }
+            else
+            {
+                data = type.photo;
+            }
+           
         }
     }
 }

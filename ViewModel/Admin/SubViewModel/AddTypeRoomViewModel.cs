@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin
@@ -120,7 +121,23 @@ namespace HM2.ViewModel.Admin
             }
         }
 
+        private string picture;
+        public string Picture
+        {
+            get
+            {
+                return picture;
+            }
+            set
+            {
+                picture = value;
+                RaisePropertyChanged("Picture");
+            }
+        }
+
+
         public ICommand AddNewTypeRoom { get; }
+        public ICommand LoadPicture { get; }
         public AddTypeRoomViewModel(WindowContext windowContext , OnWindowClose onWindowClose) 
         {
             AllCapacities = new ObservableCollection<CapacityExtension>();
@@ -143,9 +160,21 @@ namespace HM2.ViewModel.Admin
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Windows.MessageBox.Show(ex.Message);
             }
-            
+
+            LoadPicture = new RelayCommand(_ =>
+            {
+
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Picture = openFileDialog.FileName;
+                    }
+                }
+            });
+
 
             AddNewTypeRoom = new RelayCommand(_ =>
             {
@@ -160,7 +189,7 @@ namespace HM2.ViewModel.Admin
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    System.Windows.MessageBox.Show(ex.Message);
                 }
                 
             });

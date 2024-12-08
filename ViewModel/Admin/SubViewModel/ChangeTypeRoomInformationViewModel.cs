@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace HM2.ViewModel.Admin
@@ -117,7 +119,22 @@ namespace HM2.ViewModel.Admin
             }
         }
 
+        //private string _selectedPicture;
+        //public string SelectedPicture
+        //{
+        //    get
+        //    {
+        //        return _selectedPicture;
+        //    }
+        //    set
+        //    {
+        //        _selectedPicture = value;
+        //        RaisePropertyChanged("SelectedPicture");
+        //    }
+        //}
+
         public ICommand ConfirmChanges { get; }
+        public ICommand LoadPicture { get; }
         private OnWindowClose _onWindowClose;
         public ChangeTypeRoomInformationViewModel(WindowContext windowContext, OnWindowClose onWindowClose)
         {
@@ -149,24 +166,39 @@ namespace HM2.ViewModel.Admin
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Windows.MessageBox.Show(ex.Message);
             }
 
             ConfirmChanges = new RelayCommand(_ =>
             {
                 try
                 {
-                    changeTypeRoomInformationModel.ChangeInformation(selectedType.Id, SelectedCost, SelectedDescription, SelectedCapacity.Id, SelectedComfort.Id);
+                    changeTypeRoomInformationModel.ChangeInformation(selectedType.Id, SelectedCost, SelectedDescription, SelectedCapacity.Id, SelectedComfort.Id , selectedType.data);
                     var currentWindow = windowContext.GetCurrentWindow();
                     currentWindow.Close();
                     _onWindowClose();
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    System.Windows.MessageBox.Show(ex.Message);
                 }
                 
             });
+
+            LoadPicture = new RelayCommand(_ =>
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string path = openFileDialog.FileName;
+                        byte[] data = File.ReadAllBytes(path);
+                        selectedType.data = data;
+                    }
+                }
+            });
+
+
         }
     }
 }
