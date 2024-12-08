@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:HM2.View.Admin"
         mc:Ignorable="d"
         Title="Изменение данных о типе комнаты" 
-        Height="450" Width="300"
-        MinHeight="450" MinWidth="250"
+        Height="550" Width="300"
+        MinHeight="550" MinWidth="300"
         SizeToContent="Manual"
         Closing="OnWindowClosed">
 
@@ -46,10 +46,7 @@
                      Text="{Binding SelectedCost , UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Картинка" Margin="0,0,0,5" FontSize="14"/>
-            <!--<TextBox x:Name="PictureTextBox" 
-                     HorizontalAlignment="Stretch" 
-                     Margin="0,0,0,10"
-                     Text="{Binding SelectedPicture , UpdateSourceTrigger=PropertyChanged}"/>-->
+            <Image Source="{Binding ImageSource}" Height="100" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
             <Button Content="Загрузить" Width="100" 
                 HorizontalAlignment="Left" 

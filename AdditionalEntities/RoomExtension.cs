@@ -35,9 +35,17 @@ namespace DAL.AdditionalEntities
             IsCreated = (DateTime)room.CreateDate;
             IsDeleted = room.DeleteDate;
             ImagePath = new BitmapImage();
-            ImagePath.BeginInit();
-            ImagePath.StreamSource = new MemoryStream(type.data);
-            ImagePath.EndInit();
+            if (type.data != null)
+            {
+                ImagePath.BeginInit();
+                ImagePath.StreamSource = new MemoryStream(type.data);
+                ImagePath.EndInit();
+            }
+            else
+            {
+                ImagePath = null;
+            }
+            
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HM2.ViewModel.Admin
 {
@@ -115,23 +118,58 @@ namespace HM2.ViewModel.Admin
             set
             {
                 _selectedDescription = value;
-                RaisePropertyChanged("SelectedDescription");
             }
         }
 
-        //private string _selectedPicture;
-        //public string SelectedPicture
-        //{
-        //    get
-        //    {
-        //        return _selectedPicture;
-        //    }
-        //    set
-        //    {
-        //        _selectedPicture = value;
-        //        RaisePropertyChanged("SelectedPicture");
-        //    }
-        //}
+        private byte[] _imageBytes;
+        public byte[] ImageBytes
+        {
+            get
+            {
+                return _imageBytes;
+            }
+            set
+            {
+                _imageBytes = value;
+                RaisePropertyChanged(nameof(ImageBytes));
+                UpdateImageSource();
+            }
+        }
+
+        private ImageSource _imageSource;
+        public ImageSource ImageSource
+        {
+            get
+            {
+                return _imageSource;
+            }
+            set
+            {
+                _imageSource = value;
+                RaisePropertyChanged(nameof(ImageSource));
+            }
+        }
+
+        private void UpdateImageSource()
+        {
+            if (_imageBytes == null || _imageBytes.Length == 0)
+            {
+                ImageSource = null;
+                return;
+            }
+
+            using (var stream = new MemoryStream(_imageBytes))
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                ImageSource = bitmap;
+            }
+        }
+
 
         public ICommand ConfirmChanges { get; }
         public ICommand LoadPicture { get; }
@@ -157,6 +195,7 @@ namespace HM2.ViewModel.Admin
                 {
                     Capacities.Add(item);
                 }
+                ImageBytes = selectedType.data;
                 SelectedCost = selectedType.cost.ToString();
                 SelectedDescription = selectedType.description;
                 var comfort = changeTypeRoomInformationModel.GetComfort(selectedType.IdComfort, comfortList);
@@ -193,6 +232,7 @@ namespace HM2.ViewModel.Admin
                     {
                         string path = openFileDialog.FileName;
                         byte[] data = File.ReadAllBytes(path);
+                        ImageBytes = data;
                         selectedType.data = data;
                     }
                 }

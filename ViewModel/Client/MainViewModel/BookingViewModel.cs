@@ -206,12 +206,6 @@ namespace HM2.ViewModel
 
         public BookingViewModel(WindowContext windowContext , OnWindowClose onWindowClose) 
         {
-            //ImagePath = new BitmapImage();
-            //string path = "C:\\Users\\samoy\\Desktop\\Учеба\\3 курс\\Конструирование ПО\\Курсовая\\Test\\CourseWork\\Photos\\photo1.jpg";
-            //byte[] data = File.ReadAllBytes(path);
-            //ImagePath.BeginInit();
-            //ImagePath.StreamSource = new MemoryStream(data);
-            //ImagePath.EndInit();
 
             try
             {
@@ -261,7 +255,6 @@ namespace HM2.ViewModel
                     List<RoomExtension> findRooms = roomsModel.GetRooms(_selectedType, StartDate, EndDate);
                     foreach (RoomExtension findRoom in findRooms)
                     {
-                        //findRoom.ImagePath = ImagePath;
                         Rooms.Add(findRoom);
                     }
                 }
