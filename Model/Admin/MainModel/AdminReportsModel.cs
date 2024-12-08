@@ -10,6 +10,9 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using OxyPlot.Series;
+using OxyPlot;
 
 namespace HM2.Model.Admin.MainModel
 {
@@ -76,7 +79,7 @@ namespace HM2.Model.Admin.MainModel
             return report;
         }
 
-        public PdfDocument PreparePDFReport(DateTime start , DateTime end , string revenueRooms, string revenueAddService, string countRooms , string countBusyRooms , string countBookings)
+        public PdfDocument PreparePDFReport(DateTime start, DateTime end, string revenueRooms, string revenueAddService, string countRooms, string countBusyRooms, string countBookings)
         {
             PdfDocument document = new PdfDocument();
             document.Info.Title = "Отчет";
@@ -94,7 +97,51 @@ namespace HM2.Model.Admin.MainModel
             string.Format("          Выручка за занятые номера: {0} руб.\n", revenueRooms) +
             string.Format("          Выручка за услуги: {0} руб.\n", revenueAddService);
             tf.DrawString(text, font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopLeft);
+
+            int allRooms = int.Parse(countRooms);
+            int busyRoomsCount = int.Parse(countBusyRooms);
+            int bookedRoomsCount = int.Parse(countBookings);
+            int freeRoomsCount = allRooms - busyRoomsCount - bookedRoomsCount;
+
+            byte[] chartBytes = GeneratePieChartBytes(freeRoomsCount, busyRoomsCount, bookedRoomsCount);
+            using (var chartStream = new MemoryStream(chartBytes))
+            {
+                XImage chartImage = XImage.FromStream(chartStream);
+                gfx.DrawImage(chartImage, 50, 490, 500, 300); // Позиция и размеры диаграммы
+            }
+
             return document;
         }
+
+        private byte[] GeneratePieChartBytes(int freeRooms, int busyRooms, int bookedRooms)
+        {
+            var plotModel = new PlotModel { Title = "Rooms" };
+
+            var pieSeries = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0,
+            };
+
+            // Добавляем данные в диаграмму
+            pieSeries.Slices.Add(new PieSlice("FreeRooms", freeRooms) { Fill = OxyColors.Green });
+            pieSeries.Slices.Add(new PieSlice("BusyRooms", busyRooms) { Fill = OxyColors.Red });
+            pieSeries.Slices.Add(new PieSlice("BookedRooms", bookedRooms) { Fill = OxyColors.Orange });
+
+            plotModel.Series.Add(pieSeries);
+            plotModel.DefaultFont = "Arial";
+            plotModel.DefaultFontSize = 40;
+
+            // Экспорт в поток
+            using (var stream = new MemoryStream())
+            {
+                var pdfExporter = new PdfExporter { Width = 600, Height = 400 };
+                pdfExporter.Export(plotModel, stream);
+                return stream.ToArray();
+            }
+        }
+
     }
 }

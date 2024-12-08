@@ -249,7 +249,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Отчеты">
+            <TabItem Header="Отчет о заполненности">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -334,7 +334,7 @@
                     <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
                         <TextBlock Text="Выручка" FontWeight="Bold" FontSize="16" />
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <TextBlock Text="Выручка за занятые номера:" VerticalAlignment="Center" />
+                            <TextBlock Text="Выручка за номера:" VerticalAlignment="Center" />
                             <TextBox Name="RevenueRoomsTextBox" 
                                      Text="{Binding RevenueRooms , UpdateSourceTrigger=PropertyChanged}"  
                                      IsReadOnly="True" 
@@ -381,6 +381,48 @@
                     </TabControl>
                 </Grid>
             </TabItem>
+
+            <TabItem Header="Период">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 10">
+                        <TextBlock Text="Период с" VerticalAlignment="Center" Margin="0 0 5 0" />
+                        <DatePicker Name="StartDatePicker" Width="120" Margin="0 0 10 0" />
+                        <TextBlock Text="по" VerticalAlignment="Center" Margin="0 0 5 0" />
+                        <DatePicker Name="EndDatePicker" Width="120" Margin="0 0 20 0" />
+                        <Button Content="Создать отчет" Width="140" Margin="0 5 0 0" />
+                        <Button Content="Экспортировать Отчет" Width="140" Margin="5 0 0 0" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Первый столбец -->
+                        <StackPanel Grid.Column="0" Margin="0 0 10 0">
+                            <TextBlock Text="3 часто выбираемых типа номера" FontWeight="Bold" Margin="0 0 10 0" />
+                            <TextBox Name="RoomType1" Margin="0 5 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                            <TextBox Name="RoomType2" Margin="0 0 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                            <TextBox Name="RoomType3" Margin="0 0 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+                        <!-- Второй столбец -->
+                        <StackPanel Grid.Column="1" Margin="10 0 0 0">
+                            <TextBlock Text="Прибыль с занятых номеров" FontWeight="Bold" Margin="0 0 10 0" />
+                            <TextBox Name="ProfitType1" Margin="0 5 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                            <TextBox Name="ProfitType2" Margin="0 0 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                            <TextBox Name="ProfitType3" Margin="0 0 0 5" Width="200" IsReadOnly="True" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
 
         </TabControl>
     </Grid>
