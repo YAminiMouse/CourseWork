@@ -2,10 +2,14 @@
 using HM2.AdditionalEntities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HM2.Model.Admin.SubModel
 {
@@ -74,6 +78,35 @@ namespace HM2.Model.Admin.SubModel
                 return d.Id == Id;
             });
             return selectedCapacity;
+        }
+
+        public byte[] GetPicture()
+        {
+            byte[] data = new byte[0];
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string path = openFileDialog.FileName;
+                    data = File.ReadAllBytes(path);
+                }
+            }
+            return data;
+        }
+
+        public BitmapImage UpdateImageSource(byte[] _imageBytes)
+        {
+            if (_imageBytes == null || _imageBytes.Length == 0)
+            {
+                return null;
+            }
+
+            var bitmap = new BitmapImage();
+            var stream = new MemoryStream(_imageBytes);
+            bitmap.BeginInit();
+            bitmap.StreamSource = stream;
+            bitmap.EndInit();
+            return bitmap;
         }
 
     }

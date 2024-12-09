@@ -1,6 +1,7 @@
 ﻿using DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace DAL.AdditionalEntities
             IsCreated = (DateTime)room.CreateDate;
             IsDeleted = room.DeleteDate;
             ImagePath = new BitmapImage();
-            if (type.data != null)
+            if (type.data != null && type.data.Length > 0)
             {
                 ImagePath.BeginInit();
                 ImagePath.StreamSource = new MemoryStream(type.data);
@@ -43,7 +44,7 @@ namespace DAL.AdditionalEntities
             }
             else
             {
-                ImagePath = null;
+                ImagePath = new BitmapImage();
             }
             
         }

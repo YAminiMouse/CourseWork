@@ -2,9 +2,14 @@
 using HM2.AdditionalEntities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HM2.Model.Admin.SubModel
 {
@@ -12,7 +17,7 @@ namespace HM2.Model.Admin.SubModel
     {
         public AddTypeRoomModel() { }
 
-        public void AddNewTypeRoom(string cost , int selectedComfortId , int selectedCapacityId , string selectedCapacityName , string selectedComfortName , string description)
+        public void AddNewTypeRoom(string cost, int selectedComfortId, int selectedCapacityId, string selectedCapacityName, string selectedComfortName, string description, byte[] picture)
         {
             var costType = int.Parse(cost);
             using (HotelModel hm = new HotelModel())
@@ -21,8 +26,8 @@ namespace HM2.Model.Admin.SubModel
                 typeRoom.cost = costType;
                 typeRoom.IdComfort = selectedComfortId;
                 typeRoom.IdSize = selectedCapacityId;
-                //typeRoom.name = selectedCapacityName + " " + selectedComfortName;
                 typeRoom.description = description;
+                typeRoom.photo = picture;
                 hm.TypeRoom.Add(typeRoom);
                 hm.SaveChanges();
             }
@@ -57,6 +62,25 @@ namespace HM2.Model.Admin.SubModel
                 }
             }
             return comforts;
+        }
+
+        public Tuple<BitmapImage , byte[]> UpdateImageSource()
+        {
+            var bitmap = new BitmapImage();
+            byte[] _imageBytes = new byte[0];
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string path = openFileDialog.FileName;
+                    _imageBytes = File.ReadAllBytes(path);
+                    var stream = new MemoryStream(_imageBytes);
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                }
+            }
+            return Tuple.Create(bitmap, _imageBytes);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HM2.ViewModel.Admin
 {
@@ -121,17 +124,31 @@ namespace HM2.ViewModel.Admin
             }
         }
 
-        private string picture;
-        public string Picture
+        private byte[] _imageBytes;
+        public byte[] ImageBytes
         {
             get
             {
-                return picture;
+                return _imageBytes;
             }
             set
             {
-                picture = value;
-                RaisePropertyChanged("Picture");
+                _imageBytes = value;
+                RaisePropertyChanged(nameof(ImageBytes));
+            }
+        }
+
+        private ImageSource _picture;
+        public ImageSource Picture
+        {
+            get
+            {
+                return _picture;
+            }
+            set
+            {
+                _picture = value;
+                RaisePropertyChanged(nameof(Picture));
             }
         }
 
@@ -165,14 +182,9 @@ namespace HM2.ViewModel.Admin
 
             LoadPicture = new RelayCommand(_ =>
             {
-
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        Picture = openFileDialog.FileName;
-                    }
-                }
+                var result = addTypeRoomModel.UpdateImageSource();
+                Picture = result.Item1;
+                ImageBytes = result.Item2;  
             });
 
 
@@ -180,9 +192,9 @@ namespace HM2.ViewModel.Admin
             {
                 try
                 {
-                    if (SelectedCapacity != null && SelectedComfort != null && Cost.Length != 0)
+                    if (SelectedCapacity != null && SelectedComfort != null && Cost.Length != 0 && Picture != null)
                     {
-                        addTypeRoomModel.AddNewTypeRoom(Cost, SelectedComfort.Id, SelectedCapacity.Id, SelectedCapacity.name, SelectedComfort.name, Description);
+                        addTypeRoomModel.AddNewTypeRoom(Cost, SelectedComfort.Id, SelectedCapacity.Id, SelectedCapacity.name, SelectedComfort.name, Description , ImageBytes);
                     }
                     windowContext.GetCurrentWindow().Close();
                     onWindowClose();

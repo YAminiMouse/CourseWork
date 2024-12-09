@@ -132,7 +132,6 @@ namespace HM2.ViewModel.Admin
             {
                 _imageBytes = value;
                 RaisePropertyChanged(nameof(ImageBytes));
-                UpdateImageSource();
             }
         }
 
@@ -150,25 +149,25 @@ namespace HM2.ViewModel.Admin
             }
         }
 
-        private void UpdateImageSource()
-        {
-            if (_imageBytes == null || _imageBytes.Length == 0)
-            {
-                ImageSource = null;
-                return;
-            }
+        //private void UpdateImageSource()
+        //{
+        //    if (_imageBytes == null || _imageBytes.Length == 0)
+        //    {
+        //        ImageSource = null;
+        //        return;
+        //    }
 
-            using (var stream = new MemoryStream(_imageBytes))
-            {
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = stream;
-                bitmap.EndInit();
-                bitmap.Freeze();
-                ImageSource = bitmap;
-            }
-        }
+        //    using (var stream = new MemoryStream(_imageBytes))
+        //    {
+        //        var bitmap = new BitmapImage();
+        //        bitmap.BeginInit();
+        //        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        //        bitmap.StreamSource = stream;
+        //        bitmap.EndInit();
+        //        bitmap.Freeze();
+        //        ImageSource = bitmap;
+        //    }
+        //}
 
 
         public ICommand ConfirmChanges { get; }
@@ -186,6 +185,7 @@ namespace HM2.ViewModel.Admin
 
                 selectedType = (TypeRoomExtension)windowContext.GetResourse("SELECTED_TYPE");
                 var comfortList = changeTypeRoomInformationModel.GetAllComforts();
+
                 foreach (var item in comfortList)
                 {
                     Comforts.Add(item);
@@ -195,11 +195,16 @@ namespace HM2.ViewModel.Admin
                 {
                     Capacities.Add(item);
                 }
+
                 ImageBytes = selectedType.data;
+                ImageSource = changeTypeRoomInformationModel.UpdateImageSource(ImageBytes);
+
                 SelectedCost = selectedType.cost.ToString();
                 SelectedDescription = selectedType.description;
+
                 var comfort = changeTypeRoomInformationModel.GetComfort(selectedType.IdComfort, comfortList);
                 var capacity = changeTypeRoomInformationModel.GetCapacity(selectedType.IdCapacity, capacityList);
+
                 SelectedCapacity = capacity;
                 SelectedComfort = comfort;
             }
@@ -226,16 +231,9 @@ namespace HM2.ViewModel.Admin
 
             LoadPicture = new RelayCommand(_ =>
             {
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        string path = openFileDialog.FileName;
-                        byte[] data = File.ReadAllBytes(path);
-                        ImageBytes = data;
-                        selectedType.data = data;
-                    }
-                }
+                ImageBytes = changeTypeRoomInformationModel.GetPicture();
+                ImageSource = changeTypeRoomInformationModel.UpdateImageSource(ImageBytes);
+                selectedType.data = ImageBytes;
             });
 
 
