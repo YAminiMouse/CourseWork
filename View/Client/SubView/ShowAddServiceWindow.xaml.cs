@@ -28,7 +28,8 @@ namespace HM2.View
             InitializeComponent();
             _windowContext = windowContext;
             windowContext.SetSubWindow(this);
-            DataContext = new AddServiceViewModel(this , callBack);
+            _windowContext.SetCurrentWindow(this);
+            DataContext = new AddServiceViewModel(windowContext , callBack);
         }
 
         public void OnWindowClosed(object sender, CancelEventArgs e)

@@ -90,7 +90,7 @@ namespace HM2.ViewModel
             }
         }
 
-        public AddServiceViewModel(Window window , ReturnEnteringData callBack)
+        public AddServiceViewModel(WindowContext windowContext , ReturnEnteringData callBack)
         {
             try
             {
@@ -113,7 +113,8 @@ namespace HM2.ViewModel
                 try
                 {
                     callBack(_selectedAddService, Count);
-                    window.Close();
+                    windowContext.GetCurrentWindow().Close();
+                    //window.Close();
                 }
                 catch(Exception ex)
                 {
