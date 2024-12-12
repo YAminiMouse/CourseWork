@@ -76,6 +76,11 @@ namespace HM2.View.Admin
                     DataContext = new AdminReportsViewModel(windowContext);
                     break;
                 }
+                case 6:
+                {
+                    DataContext = new AdminReportsViewModel(windowContext);
+                    break;
+                }
             }
         }
     }

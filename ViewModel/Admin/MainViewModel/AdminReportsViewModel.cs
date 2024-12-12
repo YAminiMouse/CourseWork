@@ -25,7 +25,6 @@ namespace HM2.ViewModel.Admin
         private AdminReportsModel adminReportsModel;
         public AdminReportsViewModel(WindowContext windowContext) 
         {
-            Debug.WriteLine("Создан AdminReportsViewModel");
             adminReportsModel = new AdminReportsModel();
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;
@@ -78,6 +77,47 @@ namespace HM2.ViewModel.Admin
                     MessageBox.Show(ex.Message);
                 }
                 
+            });
+
+            CreateReportCommand = new RelayCommand(_ =>
+            {
+                TopThreeReport report = null;
+                try
+                {
+                    report = adminReportsModel.GetTopThreeServices();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                Service1Name = report.FirstName;
+                Service2Name = report.SecondName;
+                Service3Name = report.ThirdName;
+                Service1Earnings = report.FirstCost.ToString();
+                Service2Earnings = report.SecondCost.ToString();
+                Service3Earnings = report.ThirdCost.ToString();
+            });
+
+            ExportReportCommand = new RelayCommand(_ =>
+            {
+                try
+                {
+                    int first = int.Parse(Service1Earnings);
+                    int second = int.Parse(Service2Earnings);
+                    int third = int.Parse(Service3Earnings);
+                    PdfDocument pdfDocument = adminReportsModel.PrepareTopThreePdfDocument(first, second, third, Service1Name, Service2Name, Service3Name);
+                    System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+                    saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                    saveFileDialog.DefaultExt = "pdf";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        pdfDocument.Save(saveFileDialog.FileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             });
         }
     }

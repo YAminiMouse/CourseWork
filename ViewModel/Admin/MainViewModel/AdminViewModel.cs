@@ -332,6 +332,91 @@ namespace HM2.ViewModel.Admin
             }
         }
 
+        private string service1Name;
+        public string Service1Name
+        {
+            get
+            {
+                return service1Name;
+            }
+            set
+            {
+                service1Name = value;
+                RaisePropertyChanged("Service1Name");
+            }
+        }
+
+        private string service2Name;
+        public string Service2Name
+        {
+            get
+            {
+                return service2Name;
+            }
+            set
+            {
+                service2Name = value;
+                RaisePropertyChanged("Service2Name");
+            }
+        }
+
+        private string service3Name;
+        public string Service3Name
+        {
+            get
+            {
+                return service3Name;
+            }
+            set
+            {
+                service3Name = value;
+                RaisePropertyChanged("Service3Name");
+            }
+        }
+
+        private string service1Earnings;
+        public string Service1Earnings
+        {
+            get
+            {
+                return service1Earnings;
+            }
+            set
+            {
+                service1Earnings = value;
+                RaisePropertyChanged("Service1Earnings");
+            }
+        }
+
+        private string service2Earnings;
+        public string Service2Earnings
+        {
+            get
+            {
+                return service2Earnings;
+            }
+            set
+            {
+                service2Earnings = value;
+                RaisePropertyChanged("Service2Earnings");
+            }
+        }
+
+        private string service3Earnings;
+        public string Service3Earnings
+        {
+            get
+            {
+                return service3Earnings;
+            }
+            set
+            {
+                service3Earnings = value;
+                RaisePropertyChanged("Service3Earnings");
+            }
+        }
+
+
         public ICommand FindClient { get; set; }
         public ICommand ChangeClientInformation { get; set; }
         public ICommand AddNewTypeRoom { get; set; }
@@ -346,6 +431,8 @@ namespace HM2.ViewModel.Admin
         public ICommand EvictClient { get; set; }
         public ICommand CreateReport { get; set; }
         public ICommand ExportReport { get; set; }
+        public ICommand CreateReportCommand { get; set; }
+        public ICommand ExportReportCommand { get; set; }
         public ICommand DeleteRoom { get; set; }
         public ICommand EditRoom { get; set; }
         public ICommand AddNewRoom { get; set; }

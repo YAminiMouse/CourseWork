@@ -143,5 +143,105 @@ namespace HM2.Model.Admin.MainModel
             }
         }
 
+        public TopThreeReport GetTopThreeServices()
+        {
+            TopThreeReport report = null;
+            using (var hm = new HotelModel())
+            {
+                var topServices = hm.StringService
+                    .Join(
+                        hm.AddService,
+                        ss => ss.IdAddService,
+                        asv => asv.Id,
+                        (ss, asv) => new
+                        {
+                            AddServiceName = asv.name,
+                            Revenue = ss.count * ss.cost
+                        })
+                    .GroupBy(x => x.AddServiceName)
+                    .Select(g => new
+                    {
+                        ServiceName = g.Key,
+                        TotalRevenue = g.Sum(x => x.Revenue)
+                    })
+                    .OrderByDescending(x => x.TotalRevenue)
+                    .Take(3)
+                    .ToList();
+                report = new TopThreeReport(topServices[0].TotalRevenue , topServices[1].TotalRevenue, topServices[2].TotalRevenue , topServices[0].ServiceName , topServices[1].ServiceName , topServices[2].ServiceName);
+            }
+            return report;
+        }
+
+        public PdfDocument PrepareTopThreePdfDocument(int firstCost, int secondCost, int thirdCost, string firstName, string secondName, string thirdName)
+        {
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Отчет";
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont headerFont = new XFont("Verdana", 20, XFontStyleEx.Bold);
+            XFont tableFont = new XFont("Verdana", 12, XFontStyleEx.Regular);
+
+            gfx.DrawString("Топ 3 услуги", headerFont, XBrushes.Black, new XRect(0, 20, page.Width, 50), XStringFormats.TopCenter);
+
+            double startX = 50;
+            double startY = 80;
+            double cellHeight = 25;
+            double columnWidth = page.Width / 2 - 60;
+
+            gfx.DrawRectangle(XPens.Black, startX, startY, columnWidth, cellHeight);
+            gfx.DrawRectangle(XPens.Black, startX + columnWidth, startY, columnWidth, cellHeight);
+
+            gfx.DrawString("Название услуги", tableFont, XBrushes.Black, new XRect(startX, startY, columnWidth, cellHeight), XStringFormats.Center);
+            gfx.DrawString("Заработано", tableFont, XBrushes.Black, new XRect(startX + columnWidth, startY, columnWidth, cellHeight), XStringFormats.Center);
+
+            string[] services = { firstName, secondName, thirdName };
+            int[] costs = { firstCost, secondCost, thirdCost };
+
+            for (int i = 0; i < 3; i++)
+            {
+                double currentY = startY + (i + 1) * cellHeight;
+
+                gfx.DrawRectangle(XPens.Black, startX, currentY, columnWidth, cellHeight);
+                gfx.DrawRectangle(XPens.Black, startX + columnWidth, currentY, columnWidth, cellHeight);
+
+                gfx.DrawString(services[i], tableFont, XBrushes.Black, new XRect(startX + 10, currentY, columnWidth, cellHeight), XStringFormats.CenterLeft);
+                gfx.DrawString(costs[i].ToString("C"), tableFont, XBrushes.Black, new XRect(startX + columnWidth - 10, currentY, columnWidth, cellHeight), XStringFormats.CenterRight);
+            }
+
+            byte[] chartBytes = GenerateBarChartBytes(firstCost, secondCost, thirdCost, firstName, secondName, thirdName);
+            using (var chartStream = new MemoryStream(chartBytes))
+            {
+                XImage chartImage = XImage.FromStream(chartStream);
+                gfx.DrawImage(chartImage, 50, 300, 500, 300);
+            }
+
+            return document;
+        }
+
+        private byte[] GenerateBarChartBytes(int firstCost, int secondCost, int thirdCost, string firstName, string secondName, string thirdName)
+        {
+            var plotModel = new PlotModel { Title = "Top 3 Services" };
+
+            var barSeries = new BarSeries
+            {
+                ItemsSource = new[]
+                {
+                    new BarItem { Value = firstCost },
+                    new BarItem { Value = secondCost },
+                    new BarItem { Value = thirdCost }
+                },
+                LabelPlacement = LabelPlacement.Outside,
+
+            };
+            plotModel.Series.Add(barSeries);
+
+            using (var stream = new MemoryStream())
+            {
+                var pdfExporter = new PdfExporter { Width = 600, Height = 400 };
+                pdfExporter.Export(plotModel, stream);
+                return stream.ToArray();
+            }
+        }
+
     }
 }
