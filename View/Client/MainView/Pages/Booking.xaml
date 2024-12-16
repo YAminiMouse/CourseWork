@@ -8,6 +8,63 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Бронирование" MinWidth="1000" MinHeight="600"
       Background="#bde0fe">
+    <Page.Resources>
+        <!-- Стиль для ListBox -->
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <!-- Светло-голубой фон -->
+            <Setter Property="BorderBrush" Value="#90A4AE"/>
+            <!-- Серый бордюр -->
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="#FFFFFF"/>
+                        <!-- Белый фон для элемента -->
+                        <Setter Property="BorderBrush" Value="#CFD8DC"/>
+                        <!-- Светло-серый бордюр -->
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <!-- Темно-серый текст -->
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#BBDEFB"/>
+                                            <!-- Светло-голубой при наведении -->
+                                            <Setter Property="BorderBrush" Value="#BBDEFB"/>
+                                            <!-- Голубой бордюр -->
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#BBDEFB"/>
+                                            <!-- Насыщенный голубой -->
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <!-- Белый текст -->
+                                            <Setter Property="BorderBrush" Value="#BBDEFB"/>
+                                            <!-- Темно-голубой бордюр -->
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -35,13 +92,14 @@
                     <ColumnDefinition Width="1.1*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Text="Забронировать номер" FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Text="Забронировать номер" FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" />
 
                 <DatePicker x:Name="startdate" 
                             SelectedDate="{Binding StartDate , UpdateSourceTrigger = PropertyChanged}" 
                             Grid.Row="1" 
                             Grid.Column="0"
                             Width="150"
+                            FontSize="20"
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Left" 
                             Margin="20, 0, 0, 10"
@@ -50,6 +108,7 @@
                 <DatePicker x:Name="enddate" 
                             SelectedDate="{Binding EndDate, UpdateSourceTrigger = PropertyChanged }" 
                             Grid.Row="1" 
+                            FontSize="20"
                             Grid.Column="1"
                             Width="150"
                             VerticalAlignment="Bottom" 
@@ -77,7 +136,8 @@
                                     <Image Source="{Binding ImagePath}" 
                                            Stretch="Uniform" 
                                            Width="400" 
-                                           Height="400"/>
+                                           Height="400"
+                                           Margin="20 , 0 , 0 , 0"/>
                                 </Viewbox>
 
 
@@ -123,7 +183,7 @@
                         Template="{StaticResource ButtonTemplate}"/>
 
                 <StackPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                    <TextBlock Text="Итоговая сумма" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" FontSize="20"/>
+                    <TextBlock Text="Итоговая сумма" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" FontSize="20" />
                     <TextBox Name="TotalAmountTextBox" 
                              Text="{Binding TotalAmountSum , UpdateSourceTrigger=PropertyChanged}"
                              Width="150" 
@@ -134,7 +194,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                    <TextBlock Text="Дополнительные услуги" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
+                    <TextBlock Text="Дополнительные услуги" HorizontalAlignment="Center" Margin="10" FontSize="20" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Cursor="Hand" 
                                 Content="Добавить ➕"
