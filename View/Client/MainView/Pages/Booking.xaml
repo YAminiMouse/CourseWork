@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Бронирование" MinWidth="1000" MinHeight="600"
-      Background="#fffcf9">
+      Background="#bde0fe">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,39 +20,41 @@
         <Grid Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.6*"></RowDefinition>
                     <RowDefinition Height="0.4*"></RowDefinition>
+                    <RowDefinition Height="0.6*"></RowDefinition>
                     <RowDefinition Height="0.5*"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="0.7*"></RowDefinition>
+                    <RowDefinition Height="0.9*"></RowDefinition>
+                    <RowDefinition Height="0.9*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.2*"/>
                     <ColumnDefinition Width="2.2*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="1.3*"/>
                     <ColumnDefinition Width="1.1*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Text="Бронирования" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Text="Забронировать номер" FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
 
                 <DatePicker x:Name="startdate" 
                             SelectedDate="{Binding StartDate , UpdateSourceTrigger = PropertyChanged}" 
                             Grid.Row="1" 
                             Grid.Column="0"
-                            VerticalAlignment="Center" 
+                            Width="150"
+                            VerticalAlignment="Bottom" 
                             HorizontalAlignment="Left" 
-                            Margin="20, 0, 0, 0"
+                            Margin="20, 0, 0, 10"
                             />
 
                 <DatePicker x:Name="enddate" 
                             SelectedDate="{Binding EndDate, UpdateSourceTrigger = PropertyChanged }" 
                             Grid.Row="1" 
                             Grid.Column="1"
-                            VerticalAlignment="Center" 
+                            Width="150"
+                            VerticalAlignment="Bottom" 
                             HorizontalAlignment="Right" 
-                            Margin="0, 0, 20, 0"
+                            Margin="20, 0, 10, 10"
                             />
                 <ListBox x:Name="RoomListBox" 
                          Grid.Row="2" 
@@ -61,7 +63,8 @@
                          Grid.ColumnSpan="2" 
                          Margin="10, 0, 10, 0"
                          ItemsSource="{Binding Rooms}" 
-                         SelectedItem="{Binding SelectedRoom}"> 
+                         SelectedItem="{Binding SelectedRoom}"
+                         Background="#fcfaf9">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="1">
@@ -76,6 +79,7 @@
                                            Width="400" 
                                            Height="400"/>
                                 </Viewbox>
+
 
                                 <StackPanel Grid.Column="1" Margin="5, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <TextBlock Text="Номер комнаты:" FontSize="16" FontWeight="Bold"/>
@@ -93,28 +97,33 @@
                 </ListBox>
 
 
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="Тип комнаты" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 0, 10, 0" FontFamily="Bahnschrift SemiBold"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="Выберите тип комнаты" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Margin="0, 10, 10, 0" />
 
                 <ComboBox Grid.Row="1" 
                           Grid.Column="3" 
                           Height="40" 
                           ItemsSource="{Binding TypesRoom}" 
                           SelectedItem="{Binding SelectedType}" 
-                          DisplayMemberPath="name"/>
+                          DisplayMemberPath="name"
+                          Margin="0 , 0 , 0 , 10"
+                          Padding="10"
+                          VerticalAlignment="Bottom"/>
 
 
                 <Button Grid.Row="1" 
                         Grid.Column="4" 
                         Cursor="Hand" 
                         Command="{Binding CommandFindRooms}"
-                        Content="Найти" 
-                        Width="100" 
-                        Height="50" 
-                        Template="{StaticResource ButtonTemplate}"
-                       />
+                        Content="Найти 🔎" 
+                        Width="150" 
+                        Height="40" 
+                        FontSize="20"
+                        VerticalAlignment="Bottom"
+                        Margin="0 , 0 , 0 , 10"
+                        Template="{StaticResource ButtonTemplate}"/>
 
-                <StackPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Text="Итоговая сумма" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" FontFamily="Bahnschrift SemiBold"/>
+                <StackPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <TextBlock Text="Итоговая сумма" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" FontSize="20"/>
                     <TextBox Name="TotalAmountTextBox" 
                              Text="{Binding TotalAmountSum , UpdateSourceTrigger=PropertyChanged}"
                              Width="150" 
@@ -124,20 +133,22 @@
                              IsReadOnly="True"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                    <TextBlock Text="Дополнительные услуги" HorizontalAlignment="Center" Margin="10" FontFamily="Bahnschrift SemiBold"/>
+                <StackPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <TextBlock Text="Дополнительные услуги" HorizontalAlignment="Center" Margin="10" FontSize="20"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Cursor="Hand" 
-                                Content="Добавить" 
+                                Content="Добавить ➕"
+                                FontSize="15"
                                 HorizontalAlignment="Left" 
-                                Margin="0, 0, 20, 0" 
+                                Margin="0, 0, 20, 10" 
                                 Width="100" Height="30" 
                                 Template="{StaticResource ButtonTemplate}" 
                                 Command="{Binding CommandSwowListServices}"/>
                         <Button Cursor="Hand" 
-                                Content="Удалить" 
+                                Content="Удалить 🗑️" 
+                                FontSize="15"
                                 HorizontalAlignment="Right" 
-                                Margin="20, 0, 0, 0" 
+                                Margin="20, 0, 0, 10" 
                                 Width="100" 
                                 Height="30" 
                                 Template="{StaticResource ButtonTemplate}"
@@ -145,14 +156,16 @@
                     </StackPanel>
                 </StackPanel>
 
+
                 <ListBox x:Name="BookingsListBox"  
                          ItemsSource="{Binding EnterAddServices}"
                          Grid.Row="3" 
-                         Grid.Column="2"
+                         Grid.Column="3"
                          Grid.RowSpan="2" 
-                         Grid.ColumnSpan="3" 
+                         Grid.ColumnSpan="2" 
                          Margin="20, 0, 20, 0"
-                         SelectedItem="{Binding SelectedAddService}">
+                         SelectedItem="{Binding SelectedAddService}"
+                         Background="#fcfaf9">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="5">
@@ -171,9 +184,10 @@
                 <Button Cursor="Hand" 
                         Grid.Row="5" 
                         Grid.Column="4" 
-                        Content="Подтвердить" 
+                        Content="Подтвердить ✅" 
                         Width="150" 
-                        Height="50" 
+                        Height="40" 
+                        FontSize="18"
                         Template="{StaticResource ButtonTemplate}"
                         Command="{Binding CommandConfirmBooking}"/>
 

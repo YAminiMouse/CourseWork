@@ -21,14 +21,18 @@ namespace HM2.Model
         // 5  - все данные корректны
         public int CreateNewUser(string login, string password , string fio , string number)
         {
+            if (login == null || password == null || fio == null || number == null)
+            {
+                return 100;
+            }
             Regex regexNumber = new Regex(@"^((\+7|7|8)+([0-9]){10})$");
             Regex regexFIO = new Regex(@"^[а-яА-ЯёЁa-zA-Z]+ [а-яА-ЯёЁa-zA-Z]+ [а-яА-ЯёЁa-zA-Z]+$");
 
-            if (login.Count() < 8)
+            if (login.Count() > 0 && login.Count() < 8)
             {
                 return 1;
             }
-            if (password.Count() < 8)
+            if (password.Count() > 0 && password.Count() < 8)
             {
                 return 2;
             }

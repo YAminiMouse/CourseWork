@@ -12,13 +12,13 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Grid Background="AliceBlue">
+        <Grid Background="#A3D5FF">
                 <StackPanel Grid.Column="0" VerticalAlignment="Top">
-                <Button Content="Забронировать" Command="{Binding NavigateToBookingCommand}" Margin="10" Height="50"/>
-                <Button Content="Личный кабинет" Command="{Binding NavigateToPersonalAccountCommand}" Margin="10" Height="50"/>
+                <Button Content="Забронировать 🗓️" FontSize="20" Command="{Binding NavigateToBookingCommand}"  Template="{StaticResource ButtonTemplate}" Margin="10" Height="50"/>
+                <Button Content="Личный кабинет 👤" FontSize="20" Command="{Binding NavigateToPersonalAccountCommand}"  Template="{StaticResource ButtonTemplate}" Margin="10" Height="50"/>
 
             </StackPanel>
         </Grid>
-        <Frame Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Background="Gray"/>
+        <Frame Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Background="White"/>
     </Grid>
 </Window>

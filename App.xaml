@@ -6,17 +6,17 @@
     <Application.Resources>
 
         <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
-            <Border Name="PART_Border"  BorderBrush="#fff2ec" CornerRadius="20" 
+            <Border Name="PART_Border"  BorderBrush="#dee2e6" CornerRadius="20" 
                     TextBlock.Foreground="#000000">
                 <Border.Background>
-                    <SolidColorBrush Color="#fff2ec"/>
+                    <SolidColorBrush Color="#dee2e6"/>
                 </Border.Background>
                 <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
             </Border>
 
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="PART_Border" Property="Background" Value="#D9F0FF"/>
+                    <Setter TargetName="PART_Border" Property="Background" Value="#9db4c0"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>

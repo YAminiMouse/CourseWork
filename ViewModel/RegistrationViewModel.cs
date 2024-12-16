@@ -123,6 +123,11 @@ namespace HM2.ViewModel
                             NumberRegistrationUser = "";
                             break;
                         }
+                    case 100:
+                        {
+                            MessageBox.Show("Заполните все поля для завершения регистрации!");
+                            break;
+                        }
                 }
                 
             });

@@ -6,7 +6,47 @@
       xmlns:local="clr-namespace:HM2.View.Pages" 
       mc:Ignorable="d" 
       Title="Личный кабинет" MinWidth="1000" MinHeight="600"
-      Background="#fffcf9">
+      Background="#bde0fe">
+    <Page.Resources>
+        <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#90A4AE"/>
+            <!-- Серый бордюр -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowBackground" Value="#FFFFFF"/>
+            <!-- Белый цвет строк -->
+            <Setter Property="AlternatingRowBackground" Value="#ECEFF1"/>
+            <!-- Серый для четных строк -->
+            <Setter Property="HorizontalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Горизонтальные линии -->
+            <Setter Property="VerticalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Вертикальные линии -->
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="FontSize" Value="14"/>
+
+        </Style>
+
+        <!-- Стиль для заголовков колонок -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#5fa8d3"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Белый текст -->
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -25,29 +65,29 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Личный кабинет" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Личный кабинет" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold"/>
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="30">
-                    <TextBlock Text="ФИО" Margin="10, 0, 0, 0"/>
+                    <TextBlock Text="ФИО" Margin="10, 0, 0, 0" FontSize="20"/>
                     <TextBox Name="FullNameTextBox" 
                              Text="{Binding FIO , UpdateSourceTrigger = PropertyChanged}"
-                              
                              Margin="0,10,0,10" 
                              Height="40"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True"
+                             Padding="10"/>
 
-                    <TextBlock Text="Номер телефона" Margin="10, 0, 0, 0"/>
+                    <TextBlock Text="Номер телефона" Margin="10, 0, 0, 0" FontSize="20"/>
                     <TextBox Name="PhoneTextBox" 
                              Text="{Binding Number , UpdateSourceTrigger=PropertyChanged}" 
-                             
+                             Padding="10"
                              Margin="0,10,0,10" 
                              Height="40"
                              IsReadOnly="True"/>
 
-                    <TextBlock Text="Скидка" Margin="10, 0, 0, 0"/>
+                    <TextBlock Text="Персональная скидка" Margin="10, 0, 0, 0" FontSize="20"/>
                     <TextBox Name="DiscountTextBox" 
                              Text="{Binding Size , UpdateSourceTrigger=PropertyChanged}" 
-                              
+                             Padding="10"
                              Margin="0,10,0,10" 
                              Height="40"
                              IsReadOnly="True"/>
@@ -60,7 +100,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Мои бронирования" HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,10"/>
+                    <TextBlock Text="Мои бронирования" HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,10" FontSize="25"/>
 
                     <DataGrid Name="BookingsDataGrid"
                               Grid.Row="1" 
@@ -68,6 +108,7 @@
                               Margin="0,10,0,10"
                               ItemsSource="{Binding UserBookings}"
                               SelectedItem="{Binding SelectedBooking}"
+                              Style="{StaticResource CustomDataGridStyle}"
                               IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата приезда" Width="*" Binding="{Binding ArrivalDate}"/>
@@ -75,11 +116,11 @@
                             <DataGridTextColumn Header="Статус" Width="*" Binding="{Binding StatusName}"/>
                             <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding FinalCost}"/>
                             <DataGridTextColumn Header="Номер комнаты" Width="*" Binding="{Binding RoomNumber}"/>
-                            <!--<DataGridTextColumn Header="Тип комнаты" Width="*" Binding="{Binding TypeRoom}"/>-->
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button Content="Отменить" 
+                    <Button Content="Отменить ❌" 
+                            FontSize="15"
                             HorizontalAlignment="Right" 
                             Margin="0,0,10,0" 
                             Width="100" 
@@ -88,7 +129,8 @@
                             Grid.Row="2" 
                             Command="{Binding RefuseBooking}"
                             Template="{StaticResource ButtonTemplate}"/>
-                    <Button Content="Подробнее" 
+                    <Button Content="Подробнее 📋" 
+                            FontSize="14"
                             HorizontalAlignment="Left" 
                             Margin="0,0,10,0" 
                             Width="100" 

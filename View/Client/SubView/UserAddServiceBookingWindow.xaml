@@ -6,7 +6,47 @@
         xmlns:local="clr-namespace:HM2.View"
         mc:Ignorable="d"
         Title="Выбранные услуги" Width="450" Height="350"
+        Background="#bde0fe"
         Closing ="OnWindowClosed">
+    <Window.Resources>
+        <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#90A4AE"/>
+            <!-- Серый бордюр -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowBackground" Value="#FFFFFF"/>
+            <!-- Белый цвет строк -->
+            <Setter Property="AlternatingRowBackground" Value="#ECEFF1"/>
+            <!-- Серый для четных строк -->
+            <Setter Property="HorizontalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Горизонтальные линии -->
+            <Setter Property="VerticalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Вертикальные линии -->
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="FontSize" Value="14"/>
+
+        </Style>
+
+        <!-- Стиль для заголовков колонок -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#5fa8d3"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Белый текст -->
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid Margin="10">
             <DataGrid Name="BookingsDataGrid"
