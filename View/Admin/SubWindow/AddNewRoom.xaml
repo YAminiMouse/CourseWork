@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Создание новой комнаты" Height="350" Width="200"
         MinHeight="350" MinWidth="250"
-        Closing="OnWindowClosed">
+        Closing="OnWindowClosed"
+        Background="#979dac">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -39,11 +40,15 @@
 
         </StackPanel>
 
-        <Button Content="Добавить" Width="100" 
+        <Button Content="Добавить 🆕" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Grid.Row="1" 
                 Margin="0,20,0,0"
-                Command="{Binding AddNewRoom}"/>
+                Width="150"
+                Height="30"
+                FontSize="20"
+                Command="{Binding AddNewRoom}"
+                Template="{StaticResource ButtonTemplateAdmin}"/>
     </Grid>
 </Window>

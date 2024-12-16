@@ -9,7 +9,8 @@
         Height="200" Width="300"
         MinHeight="200" MinWidth="250"
         SizeToContent="Manual"
-        Closing="OnWindowClosed">
+        Closing="OnWindowClosed"
+        Background="#979dac">
 
     <Grid Margin="10">
 
@@ -26,10 +27,14 @@
                      Text="{Binding CostService , UpdateSourceTrigger=PropertyChanged}"/>
 
 
-            <Button Content="Добавить" Width="100" 
+            <Button Content="Добавить 🆕"
                     HorizontalAlignment="Center" 
                     Margin="0,20,0,0"
-                    Command="{Binding ConfirmService}"/>
+                    Width="150"
+                    Height="30"
+                    FontSize="20"
+                    Command="{Binding ConfirmService}"
+                    Template="{StaticResource ButtonTemplateAdmin}"/>
 
         </StackPanel>
     </Grid>

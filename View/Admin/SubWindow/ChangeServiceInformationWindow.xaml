@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:HM2.View.Admin"
         mc:Ignorable="d"
         Title="Изменить услугу" Height="200" Width="250"
-        Closing="OnWindowClosed">
+        Closing="OnWindowClosed"
+        Background="#979dac">
     <Grid Margin="10">
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -22,10 +23,14 @@
                      Text="{Binding SelectedCostService , UpdateSourceTrigger=PropertyChanged}"/>
 
 
-            <Button Content="Изменить" Width="100" 
+            <Button Content="Изменить ✏️" 
                     HorizontalAlignment="Center" 
                     Margin="0,20,0,0"
-                    Command="{Binding EditAddService}"/>
+                    Width="150"
+                    Height="30" 
+                    FontSize="20"
+                    Command="{Binding EditAddService}"
+                    Template="{StaticResource ButtonTemplateAdmin}"/>
 
         </StackPanel>
     </Grid>

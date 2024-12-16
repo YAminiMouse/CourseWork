@@ -8,7 +8,7 @@
         Title="Изменить информацию о комнате" Height="350" Width="200"
         MinHeight="350" MinWidth="250"
         Closing="OnWindowClosed"
-       >
+        Background="#979dac">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -39,11 +39,15 @@
 
         </StackPanel>
 
-        <Button Content="Изменить" Width="100" 
+        <Button Content="Изменить ✏️" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Grid.Row="1" 
                 Margin="0,20,0,0"
-                Command="{Binding EditRoom}"/>
+                Width="150"
+                Height="30" 
+                FontSize="20"
+                Command="{Binding EditRoom}"
+                Template="{StaticResource ButtonTemplateAdmin}"/>
     </Grid>
 </Window>

@@ -9,7 +9,8 @@
         Height="300" Width="300"
         MinHeight="320" MinWidth="250"
         SizeToContent="Manual"
-        Closing="OnWindowClosed">
+        Closing="OnWindowClosed"
+        Background="#979dac">
 
     <Grid Margin="10">
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -41,10 +42,14 @@
                      Name="NumberUser" 
                      Text="{Binding NumberUser , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button Content="Изменить" Width="100" 
+            <Button Content="Изменить ✏️" 
                     HorizontalAlignment="Center" 
                     Margin="0,20,0,0"
-                    Command="{Binding ChangeClientInformation}"/>
+                    Width="150"
+                    Height="30" 
+                    FontSize="20"
+                    Command="{Binding ChangeClientInformation}"
+                    Template="{StaticResource ButtonTemplateAdmin}"/>
 
         </StackPanel>
     </Grid>
