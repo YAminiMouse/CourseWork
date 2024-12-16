@@ -16,21 +16,21 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="0">
-            
-            <TextBlock Text="Этаж" Margin="0,0,0,5" FontSize="14"/>
+
+            <TextBlock Text="Этаж" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox x:Name="FloorTextBox" 
                       HorizontalAlignment="Stretch" 
                       Margin="0,0,0,10"
                      Text="{Binding Floor , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Text="Номер комнаты" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Номер комнаты" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox x:Name="NumberTextBox" 
                       HorizontalAlignment="Stretch" 
                       Margin="0,0,0,10"
                      Text="{Binding Number , UpdateSourceTrigger=PropertyChanged}"/>
 
 
-            <TextBlock Text="Тип комнаты" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Тип комнаты" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <ComboBox x:Name="TypeRoomCombobox" 
                       HorizontalAlignment="Stretch" 
                       Margin="0,0,0,10"

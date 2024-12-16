@@ -206,8 +206,8 @@
                                 <DataGridTextColumn Header="Номер комнаты" Binding="{Binding number}"/>
                                 <DataGridTextColumn Header="Тип комнаты" Binding="{Binding NameTypeRoom}"/>
                                 <DataGridTextColumn Header="Этаж" Binding="{Binding floor}"/>
-                                <DataGridTextColumn Header="Дата создания" Binding="{Binding IsCreated}"/>
-                                <DataGridTextColumn Header="Дата удаления" Binding="{Binding IsDeleted}"/>
+                                <!--<DataGridTextColumn Header="Дата создания" Binding="{Binding IsCreated , StringFormat=d}"/>-->
+                                <!--<DataGridTextColumn Header="Дата удаления" Binding="{Binding IsDeleted , StringFormat=d}"/>-->
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

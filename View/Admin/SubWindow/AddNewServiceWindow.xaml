@@ -16,12 +16,12 @@
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
-            <TextBlock Text="Название услуги" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Название услуги" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10"
                      Text="{Binding NameService , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Text="Стоимость услуги" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Стоимость услуги" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10"
                      Text="{Binding CostService , UpdateSourceTrigger=PropertyChanged}"/>

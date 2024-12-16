@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:HM2.View.Admin"
         mc:Ignorable="d"
         Title="Изменение данных клиента" 
-        Height="300" Width="300"
-        MinHeight="320" MinWidth="250"
+        Height="300" Width="350"
+        MinHeight="320" MinWidth="350"
         SizeToContent="Manual"
         Closing="OnWindowClosed"
         Background="#979dac">
@@ -15,27 +15,27 @@
     <Grid Margin="10">
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
-            <TextBlock Text="ФИО клиента" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="ФИО клиента" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10"
                      Name="FIOUser" 
                      Text="{Binding FIOUser , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Text="Общая сумма бронирований клиента" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Общая сумма бронирований клиента" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10" 
                      IsReadOnly="True"
                      Name="MoneySpentUser" 
                      Text="{Binding MoneySpentUser , UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Text="Размер персональной скидки клиента" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Размер персональной скидки клиента" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <ComboBox HorizontalAlignment="Stretch" 
                       Margin="0,0,0,10"
                       ItemsSource="{Binding Discounts}" 
                       SelectedItem="{Binding SelectedDiscount}" 
                       DisplayMemberPath="name"/>
 
-            <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5" FontSize="14"/>
+            <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5" FontSize="16" FontWeight="Bold"/>
             <TextBox  
                      HorizontalAlignment="Stretch" 
                      Margin="0,0,0,10"
