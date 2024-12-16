@@ -382,7 +382,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Топ 3 услуги за все время">
+            <TabItem Header="Топ 3 услуги">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

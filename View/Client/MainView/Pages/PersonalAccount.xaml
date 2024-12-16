@@ -10,9 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <!-- Верхняя панель с фиксированной высотой -->
             <RowDefinition Height="*"/>
-            <!-- Остальная часть окна, растягивается -->
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
@@ -58,11 +56,8 @@
                 <Grid Grid.Row="1" Grid.Column="1" Margin="30">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <!-- Для заголовка "Мои бронирования" -->
                         <RowDefinition Height="*"/>
-                        <!-- DataGrid будет растягиваться по высоте -->
                         <RowDefinition Height="Auto"/>
-                        <!-- Кнопка "Отменить" будет фиксированного размера -->
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Мои бронирования" HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,10"/>
@@ -80,7 +75,7 @@
                             <DataGridTextColumn Header="Статус" Width="*" Binding="{Binding StatusName}"/>
                             <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding FinalCost}"/>
                             <DataGridTextColumn Header="Номер комнаты" Width="*" Binding="{Binding RoomNumber}"/>
-                            <DataGridTextColumn Header="Тип комнаты" Width="*" Binding="{Binding TypeRoom}"/>
+                            <!--<DataGridTextColumn Header="Тип комнаты" Width="*" Binding="{Binding TypeRoom}"/>-->
                         </DataGrid.Columns>
                     </DataGrid>
 

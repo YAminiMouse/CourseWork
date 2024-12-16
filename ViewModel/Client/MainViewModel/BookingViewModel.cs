@@ -291,6 +291,7 @@ namespace HM2.ViewModel
                     {
                         var currentUser = (UserExtension)_windowContext.GetResourse("CURRENT_USER");
                         roomsModel.CreateBooking(serviceExtensions, 1, currentUser.Id, _startDate, _endDate, _selectedRoom.Id, double.Parse(TotalAmountSum));
+                        MessageBox.Show("Броинрование прошло успешно!\nПосле закрытия этого окна Вы автоматически перейдете в Личный кабинет");
                         onWindowClose();
                     }
                     else

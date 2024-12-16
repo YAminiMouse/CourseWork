@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:HM2.View"
         mc:Ignorable="d"
         Title="Регистрация" MinHeight="650" 
-                     MinWidth="350"
+                     MinWidth="1000"
                      HorizontalAlignment="Stretch"
-                     MaxWidth="350"
+                     MaxWidth="1000"
                      MaxHeight="650" 
                      VerticalAlignment="Stretch"
                      Background="#fffbf8"
@@ -16,16 +16,17 @@
         Closing="OnWindowClosed">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Грид с кнопками управления окном, располагается сверху -->
-        <Grid>
-            <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border Background="#f68f66" CornerRadius="20" MinHeight="560" MinWidth="300" MaxHeight="450" MaxWidth="450" Padding="20">
+        <!-- Левая часть с формой регистрации -->
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Background="#83C9F4" CornerRadius="20" MinHeight="560" MinWidth="300" MaxHeight="450" MaxWidth="450" Padding="20">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <TextBlock Text="Регистрация" FontSize="25" Foreground="White" HorizontalAlignment="Center"/>
                         <!-- Логин -->
@@ -58,20 +59,25 @@
                             </Border>
                         </StackPanel>
 
-                        <!-- Кнопка Войти -->
+                        <!-- Кнопка Зарегистрироваться -->
                         <Button Content="Зарегистрироваться" Command="{Binding AddNewUser}" Height="40" Width="200" Margin="0,10,0,0" Cursor="Hand"
-                        HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
+                                HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
                         </Button>
 
-
-                        <!-- Регистрация -->
+                        <!-- Кнопка Назад -->
                         <Button Content="Назад" Command="{Binding BackToLoginWindow}" Height="40" Width="200" Margin="0,10,0,0" Cursor="Hand"
-                        HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
+                                HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
                         </Button>
 
                     </StackPanel>
                 </Border>
             </Grid>
         </Grid>
+
+        <!-- Правая часть с изображением -->
+        <Border Grid.Column="1" Background="White">
+            <Image Source="\Photo\zastavka.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+
     </Grid>
 </Window>

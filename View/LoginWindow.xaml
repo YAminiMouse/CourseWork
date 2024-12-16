@@ -4,29 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-       Title="Вход" MinHeight="500" 
-                     MinWidth="500"
+        Title="Вход"
+        MinHeight="500" 
+        MinWidth="800" 
         MaxHeight="500"
-        MaxWidth="500"
-                     HorizontalAlignment="Stretch"
-                     VerticalAlignment="Stretch"
-                     Background="#fffbf8"
-                     WindowStartupLocation="CenterScreen"
-                      >
-
+        MaxWidth="800"
+        Background="#fffbf8"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border Background="#f68f66" CornerRadius="20" MinHeight="300" MinWidth="300" MaxHeight="450" MaxWidth="450" Padding="20">
+        <!-- Левая часть с изображением -->
+        <Border Grid.Column="0" Background="White">
+            <Image Source="\Photo\zastavka.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Правая часть с формой входа -->
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Background="#83C9F4" CornerRadius="20" MinHeight="300" MinWidth="300" MaxHeight="450" MaxWidth="450" Padding="20">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <TextBlock Text="Вход" FontSize="25" Foreground="White" HorizontalAlignment="Center"/>
+
                         <!-- Логин -->
                         <StackPanel Margin="0,10" HorizontalAlignment="Stretch">
                             <TextBlock Text="Логин" FontSize="16" Foreground="White" Margin="0,0,0,5"/>
@@ -45,13 +50,12 @@
 
                         <!-- Кнопка Войти -->
                         <Button Content="Войти" Command="{Binding NavigateToMainWindow}" Height="40" Width="160" Margin="0,10,0,0" Cursor="Hand"
-                        HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
+                                HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
                         </Button>
-
 
                         <!-- Регистрация -->
                         <Button Content="Зарегистрироваться" Command="{Binding RegistrationWindow}" Height="40" Width="160" Margin="0,10,0,0" Cursor="Hand"
-                        HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
+                                HorizontalAlignment="Center" FontSize="16" Template="{StaticResource ButtonTemplate}">
                         </Button>
 
                     </StackPanel>
