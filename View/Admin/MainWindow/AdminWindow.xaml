@@ -6,14 +6,67 @@
         xmlns:local="clr-namespace:HM2.View"
         mc:Ignorable="d"
         Title="Окно администратора" 
-        Height="450" 
-        Width="800" 
-        MinHeight="450"
-        MinWidth="800"
-        WindowStartupLocation="CenterScreen" 
-        Background="AliceBlue">
+        Height="500" 
+        Width="950" 
+        MinHeight="500"
+        MinWidth="950"
+        WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <Style TargetType="DataGrid" x:Key="CustomDataGridStyle">
+            <Setter Property="Background" Value="#E3F2FD"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#90A4AE"/>
+            <!-- Серый бордюр -->
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowBackground" Value="#FFFFFF"/>
+            <!-- Белый цвет строк -->
+            <Setter Property="AlternatingRowBackground" Value="#ECEFF1"/>
+            <!-- Серый для четных строк -->
+            <Setter Property="HorizontalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Горизонтальные линии -->
+            <Setter Property="VerticalGridLinesBrush" Value="#B0BEC5"/>
+            <!-- Вертикальные линии -->
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="FontSize" Value="14"/>
+
+        </Style>
+
+        <!-- Стиль для заголовков колонок -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#273043"/>
+            <!-- Голубой фон -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Белый текст -->
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#B0BEC5"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid Margin="10">
-        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Beige" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#979dac" SelectionChanged="TabControl_SelectionChanged">
+
+            <TabControl.Resources>
+                <!-- Стиль для TabItem с отступами между вкладками -->
+                <Style TargetType="TabItem">
+                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="Background" Value="#7d8597"/>
+                    <!-- Отступы между вкладками -->
+                    <Setter Property="Padding" Value="10,5"/>
+                    <!-- Внутренние отступы для вкладки -->
+                </Style>
+
+
+            </TabControl.Resources>
+
             <TabItem Header="Клиенты">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
@@ -23,19 +76,22 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Найти клиента" FontSize="16" Margin="0,0,0,10" Grid.Row="0"/>
+                    <TextBlock Text="Найти клиента" FontSize="20" Margin="0,0,0,10" Grid.Row="0" FontWeight="Bold"/>
                     <Border BorderBrush="Gray" BorderThickness="1" Padding="10" Margin="0,0,0,10" Grid.Row="1">
                         <StackPanel>
-                            <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5"/>
+                            <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5" FontSize="15"/>
                             <TextBox Width="200" 
                                      HorizontalAlignment="Left" 
                                      Margin="0,0,0,10"
                                      Name="SelectedPhoneClient"
                                      Text="{Binding SelectedPhoneClient , UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button Content="Найти" 
-                                    Width="100" 
+                            <Button Content="Найти 🔎" 
+                                    Width="150" 
+                                    Height="30"
+                                    FontSize="20"
                                     HorizontalAlignment="Left"
-                                    Command="{Binding FindClient}"/>
+                                    Command="{Binding FindClient}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                         </StackPanel>
                     </Border>
                     <DataGrid Name="UsersDataGrid" 
@@ -55,13 +111,13 @@
                     </DataGrid>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="3">
-                        <Button Content="Изменить" 
-                                Width="100" 
+                        <Button Content="Изменить 🔄" 
+                                Width="150" 
+                                Height="30" 
+                                FontSize="20"
                                 Margin="0,0,10,0"
-                                Command="{Binding ChangeClientInformation}"/>
-                        <Button Content="Удалить" 
-                                Width="100"
-                                />
+                                Command="{Binding ChangeClientInformation}"
+                                Template="{StaticResource ButtonTemplateAdmin}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -71,17 +127,26 @@
                 <Grid Margin="10">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
-                            <Button Content="Добавить" 
-                                    Width="100" 
+                            <Button Content="Добавить 🆕" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
                                     Margin="0,0,10,0"
-                                    Command="{Binding AddNewTypeRoom}"/>
-                            <Button Content="Изменить" 
-                                    Width="100" 
+                                    Command="{Binding AddNewTypeRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
+                            <Button Content="Изменить ✏️" 
+                                    Width="150"
+                                    Height="30" 
+                                    FontSize="20"
                                     Margin="0,0,10,0"
-                                    Command="{Binding EditTypeRoom}"/>
-                            <Button Content="Удалить" 
-                                    Width="100"
-                                    Command="{Binding DeleteTypeRoom}"/>
+                                    Command="{Binding EditTypeRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
+                            <Button Content="Удалить 🗑️" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
+                                    Command="{Binding DeleteTypeRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                         </StackPanel>
 
                         <DataGrid AutoGenerateColumns="False" 
@@ -107,17 +172,26 @@
                 <Grid Margin="10">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
-                            <Button Content="Добавить" 
-                                    Width="100" 
+                            <Button Content="Добавить 🆕" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
                                     Margin="0,0,10,0"
-                                    Command="{Binding AddNewRoom}"/>
-                            <Button Content="Изменить" 
-                                    Width="100" 
+                                    Command="{Binding AddNewRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
+                            <Button Content="Изменить ✏️" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20" 
                                     Margin="0,0,10,0"
-                                    Command="{Binding EditRoom}"/>
-                            <Button Content="Удалить" 
-                                    Width="100"
-                                    Command="{Binding DeleteRoom}"/>
+                                    Command="{Binding EditRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
+                            <Button Content="Удалить 🗑️" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
+                                    Command="{Binding DeleteRoom}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                         </StackPanel>
 
                         <DataGrid AutoGenerateColumns="False" 
@@ -149,7 +223,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Найти бронь" FontSize="16" Margin="0,0,0,10" Grid.Row="0"/>
+                    <TextBlock Text="Найти бронь" FontSize="30" Margin="0,0,0,10" Grid.Row="0" FontWeight="Bold"/>
                     <Border BorderBrush="Gray" BorderThickness="1" Padding="10" Margin="0,0,0,10" Grid.Row="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -159,14 +233,14 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5"/>
+                                <TextBlock Text="Номер телефона клиента" Margin="0,0,0,5" FontSize="20"/>
                                 <TextBox Width="200" 
                                          HorizontalAlignment="Left"
                                          Text="{Binding SelectedPhoneClientBooking , UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Margin="0,0,10,0">
-                                <TextBlock Text="Статус брони" Margin="0,0,0,5"/>
+                                <TextBlock Text="Статус брони" Margin="0,0,0,5" FontSize="20"/>
                                 <ComboBox Width="200" 
                                           DisplayMemberPath="name"
                                           HorizontalAlignment="Left"
@@ -174,10 +248,13 @@
                                           ItemsSource="{Binding AllStatusBooking}"/>
                             </StackPanel>
                             <Button Grid.Column="2" 
-                                    Content="Найти" 
-                                    Width="100" 
+                                    Content="Найти 🔎" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
                                     HorizontalAlignment="Left"
-                                    Command="{Binding FindClientBooking}"/>
+                                    Command="{Binding FindClientBooking}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                         </Grid>
                     </Border>
 
@@ -200,17 +277,26 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="3">
-                        <Button Content="Заселить" 
-                                Width="100"
+                        <Button Content="Заселить ✅" 
+                                Width="150"
+                                Height="30"
+                                FontSize="20"
                                 Command="{Binding PopulateClient}"
+                                Template="{StaticResource ButtonTemplateAdmin}"
                                 Margin="0,0,10,0"/>
-                        <Button Content="Выселить" 
-                                Width="100"
+                        <Button Content="Выселить 🚫" 
+                                Width="150"
+                                Height="30"
+                                FontSize="20"
                                 Command="{Binding EvictClient}"
+                                Template="{StaticResource ButtonTemplateAdmin}"
                                 Margin="0,0,10,0"/>
-                        <Button Content="Отменить бронь" 
-                                Width="100"
-                                Command="{Binding RefuseBooking}"/>
+                        <Button Content="Отменить бронь ❌" 
+                                Width="190"
+                                Height="30"
+                                FontSize="20"
+                                Command="{Binding RefuseBooking}"
+                                Template="{StaticResource ButtonTemplateAdmin}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -219,17 +305,26 @@
                 <Grid Margin="10">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
-                            <Button Content="Добавить" 
+                            <Button Content="Добавить 🆕" 
                                     Command="{Binding AddNewService}"
-                                    Width="100" 
-                                    Margin="0,0,10,0" />
-                            <Button Content="Изменить" 
-                                    Width="100" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
                                     Margin="0,0,10,0" 
-                                    Command="{Binding EditAddService}"/>
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
+                            <Button Content="Изменить ✏️" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20"
+                                    Margin="0,0,10,0" 
+                                    Command="{Binding EditAddService}"
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                             <Button Command="{Binding DeleteAddService}"
-                                    Content="Удалить" 
-                                    Width="100" />
+                                    Content="Удалить 🗑️" 
+                                    Width="150"
+                                    Height="30"
+                                    FontSize="20" 
+                                    Template="{StaticResource ButtonTemplateAdmin}"/>
                         </StackPanel>
 
                         <DataGrid AutoGenerateColumns="False" 
@@ -262,16 +357,18 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Кнопка "Создать отчет" -->
-                    <Button Content="Создать отчет" 
+                    <Button Content="Создать отчет ➕" 
                             Grid.Row="0" Grid.Column="1" 
-                            Width="150" Height="30" 
+                            Width="170" Height="30" FontSize="20"
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Bottom" 
                             Margin="10,0,0,10"
-                            Command="{Binding CreateReport}"/>
-                    <Button Content="Экспортировать отчет" 
+                            Command="{Binding CreateReport}"
+                            Template="{StaticResource ButtonTemplateAdmin}"/>
+                    <Button Content="Экспортировать отчет 📤" 
                             Grid.Row="0" Grid.Column="1" 
-                            Width="150" Height="30" 
+                            Width="250" Height="30" FontSize="20"
+                            Template="{StaticResource ButtonTemplateAdmin}"
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Bottom" 
                             Margin="190,0,0,10"
@@ -402,12 +499,23 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Header -->
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Топ 3 услуги за все время" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Топ 3 услуги за все время" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
                     <!-- Buttons -->
                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,10">
-                        <Button Content="Создать отчет" Margin="5" Width="150" Command="{Binding CreateReportCommand}"/>
-                        <Button Content="Экспортировать отчет" Margin="5" Width="150" Command="{Binding ExportReportCommand}"/>
+                        <Button Content="Создать отчет ➕" 
+                                Margin="5" Width="170" 
+                                Height="30" 
+                                FontSize="20" 
+                                Command="{Binding CreateReportCommand}"
+                                Template="{StaticResource ButtonTemplateAdmin}"/>
+                        <Button Content="Экспортировать отчет 📤" 
+                                Margin="5" 
+                                Width="250" 
+                                Height="30" 
+                                FontSize="20" 
+                                Command="{Binding ExportReportCommand}"
+                                Template="{StaticResource ButtonTemplateAdmin}"/>
                     </StackPanel>
 
                     <!-- Column Headers -->

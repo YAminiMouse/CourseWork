@@ -111,8 +111,8 @@
                               Style="{StaticResource CustomDataGridStyle}"
                               IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Дата приезда" Width="*" Binding="{Binding ArrivalDate}"/>
-                            <DataGridTextColumn Header="Дата отъезда" Width="*" Binding="{Binding DepatureDate}"/>
+                            <DataGridTextColumn Header="Дата приезда" Width="*" Binding="{Binding ArrivalDate , StringFormat=d}"/>
+                            <DataGridTextColumn Header="Дата отъезда" Width="*" Binding="{Binding DepatureDate , StringFormat=d}"/>
                             <DataGridTextColumn Header="Статус" Width="*" Binding="{Binding StatusName}"/>
                             <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding FinalCost}"/>
                             <DataGridTextColumn Header="Номер комнаты" Width="*" Binding="{Binding RoomNumber}"/>

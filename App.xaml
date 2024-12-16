@@ -20,6 +20,22 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
+        <ControlTemplate x:Key="ButtonTemplateAdmin" TargetType="Button">
+            <Border Name="PART_Border"  BorderBrush="#dee2e6" CornerRadius="20" 
+                    TextBlock.Foreground="#000000">
+                <Border.Background>
+                    <SolidColorBrush Color="#eaf4f4"/>
+                </Border.Background>
+                <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="PART_Border" Property="Background" Value="#a4b0f5"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
     </Application.Resources>
 </Application>
