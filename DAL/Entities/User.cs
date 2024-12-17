@@ -22,8 +22,6 @@ namespace DAL.Entities
 
         public string number { get; set; }
 
-        public string passport { get; set; }
-
         [Required]
         public string login { get; set; }
 

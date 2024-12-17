@@ -23,6 +23,9 @@ namespace DAL.Entities
         public string name { get; set; }
 
         [Column(TypeName = "date")]
+        public DateTime? CreateDate { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime? deleteDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

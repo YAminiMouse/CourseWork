@@ -117,10 +117,6 @@ namespace DAL.Entities
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .Property(e => e.passport)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
                 .Property(e => e.login)
                 .IsUnicode(false);
 

@@ -26,6 +26,9 @@ namespace DAL.Entities
         public string description { get; set; }
 
         [Column(TypeName = "date")]
+        public DateTime? CreateDate { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime? deleteDate { get; set; }
 
         public byte[] photo { get; set; }
